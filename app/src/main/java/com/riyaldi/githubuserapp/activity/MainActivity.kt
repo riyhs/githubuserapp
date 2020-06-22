@@ -10,9 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.riyaldi.githubuserapp.R
-import com.riyaldi.githubuserapp.data.User
 import com.riyaldi.githubuserapp.adapter.UserRecyclerViewAdapter
-import com.riyaldi.githubuserapp.tabfragment.DetailFragment
+import com.riyaldi.githubuserapp.data.User
 import cz.msebera.android.httpclient.Header
 import kotlinx.android.synthetic.main.activity_main.*
 import org.json.JSONObject
@@ -126,6 +125,9 @@ class MainActivity : AppCompatActivity() {
                     val responseObject = JSONObject(result)
 
                     val name = responseObject.getString("name")
+                    val company = responseObject.getString("company")
+                    val location = responseObject.getString("location")
+                    val bio = responseObject.getString("bio")
                     val followers = responseObject.getString("followers")
                     val following = responseObject.getString("following")
                     val followersUrl = responseObject.getString("followers_url")
@@ -136,6 +138,9 @@ class MainActivity : AppCompatActivity() {
                     val user = User(
                         name = name,
                         username = username,
+                        company = company,
+                        location = location,
+                        bio = bio,
                         followers = followers,
                         following = following,
                         followersUrl = followersUrl,

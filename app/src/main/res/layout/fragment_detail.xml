@@ -6,14 +6,61 @@
     android:layout_height="match_parent"
     tools:context=".tabfragment.DetailFragment">
 
+    <!--    name   -->
+    <TextView
+        android:id="@+id/tvDetailNameText"
+        style="@style/TextInfoTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvDetailName"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/name" />
+
+    <TextView
+        android:id="@+id/tvDetailName"
+        style="@style/TextInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailNameText"
+        tools:text="Name" />
+
+    <!--    username   -->
+    <TextView
+        android:id="@+id/tvDetailUsernameText"
+        style="@style/TextInfoTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvDetailName"
+        app:layout_constraintTop_toBottomOf="@id/tvDetailName"
+        android:text="@string/username"  />
+
+    <TextView
+        android:id="@+id/tvDetailUsername"
+        style="@style/TextInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailUsernameText"
+        tools:text="Username" />
+
+    <!--    location   -->
+    <TextView
+        android:id="@+id/tvDetailLocationText"
+        style="@style/TextInfoTitle"
+        app:layout_constraintStart_toStartOf="@+id/tvDetailLocation"
+        app:layout_constraintTop_toBottomOf="@id/tvDetailUsername"
+        android:text="@string/location" />
+
+    <TextView
+        android:id="@+id/tvDetailLocation"
+        style="@style/TextInfo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDetailLocationText"
+        tools:text="Location" />
+
+    <!--    location   -->
     <TextView
         android:id="@+id/tvDetailCompanyText"
         style="@style/TextInfoTitle"
-        android:layout_width="0dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/company"
         app:layout_constraintStart_toStartOf="@+id/tvDetailCompany"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tvDetailLocation"
+        android:text="@string/company" />
 
     <TextView
         android:id="@+id/tvDetailCompany"

@@ -45,6 +45,9 @@ class UserRecyclerViewAdapter(private val listUser: ArrayList<User>) : RecyclerV
                     val userDetail = User(
                         name = user.name,
                         username = user.username,
+                        company = user.company,
+                        location = user.location,
+                        bio = user.bio,
                         repositories = user.repositories,
                         followers = user.followers,
                         following = user.following,

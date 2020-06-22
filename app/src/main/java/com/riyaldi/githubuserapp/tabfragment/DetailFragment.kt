@@ -26,6 +26,9 @@ class DetailFragment : Fragment() {
     }
 
     private fun showDetail(user: User){
-        tvDetailCompany.text = user.name
+        tvDetailName.text = user.name
+        tvDetailUsername.text = user.username
+        tvDetailCompany.text = user.company
+        tvDetailLocation.text = user.location
     }
 }

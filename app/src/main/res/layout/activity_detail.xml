@@ -38,11 +38,24 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/imgProfilePhoto"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="24dp"
+            android:layout_marginBottom="16dp"
             android:textColor="@color/colorTextWhite"
             android:textSize="24sp"
             android:textStyle="bold"
             tools:text="NAMA" />
+
+        <TextView
+            android:id="@+id/tvProfileBio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvProfileName"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorTextWhite"
+            android:textStyle="italic"
+            tools:text="Bio" />
 
     </RelativeLayout>
 

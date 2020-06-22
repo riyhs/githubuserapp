@@ -7,6 +7,9 @@ import kotlinx.android.parcel.Parcelize
 data class User(
     var name: String,
     var username: String,
+    var company: String,
+    var location: String,
+    var bio: String,
     var followers: String,
     var following: String,
     var photoUrl: String,
@@ -15,6 +18,12 @@ data class User(
     var followingUrl: String
 ) : Parcelable
 
+// company
+// location
+// bio
+
 // detail activity
 // main activity
 // user recyclerview adapter
+// following fragment
+// followers fragment

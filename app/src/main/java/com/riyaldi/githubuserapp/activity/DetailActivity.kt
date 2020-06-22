@@ -1,5 +1,6 @@
 package com.riyaldi.githubuserapp.activity
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -21,6 +22,9 @@ class DetailActivity : AppCompatActivity() {
         User(
             name = user.name,
             username = user.username,
+            company = user.company,
+            location = user.location,
+            bio = user.bio,
             repositories = user.repositories,
             followers = user.followers,
             following = user.following,
@@ -44,8 +48,10 @@ class DetailActivity : AppCompatActivity() {
         return userDetail
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setDetailInfo() {
-        tvProfileName.text = user.username
+        tvProfileName.text = user.name
+        tvProfileBio.text = "\"${user.bio}\""
 
         Glide.with(this@DetailActivity)
             .load(user.photoUrl)

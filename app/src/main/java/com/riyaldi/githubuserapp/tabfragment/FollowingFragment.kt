@@ -111,6 +111,9 @@ class FollowingFragment : Fragment() {
                     val responseObject = JSONObject(result)
 
                     val name = responseObject.getString("name")
+                    val company = responseObject.getString("company")
+                    val location = responseObject.getString("location")
+                    val bio = responseObject.getString("bio")
                     val followers = responseObject.getString("followers")
                     val following = responseObject.getString("following")
                     val followersUrl = responseObject.getString("followers_url")
@@ -121,6 +124,9 @@ class FollowingFragment : Fragment() {
                     val user = User(
                         name = name,
                         username = username,
+                        company = company,
+                        location = location,
+                        bio = bio,
                         followers = followers,
                         following = following,
                         followersUrl = followersUrl,
