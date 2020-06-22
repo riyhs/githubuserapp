@@ -1,73 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".activity.DetailActivity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.DetailActivity">
+    android:layout_height="match_parent">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/materialTab"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:layout_constraintTop_toBottomOf="@+id/rlProfileInfo"
-        app:tabTextColor="@color/colorTextWhite" />
+        android:layout_height="wrap_content">
 
-    <RelativeLayout
-        android:id="@+id/rlProfileInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgProfilePhoto"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginVertical="16dp"
-            android:src="@mipmap/ic_launcher"
-            tools:src="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/tvProfileName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imgProfilePhoto"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="16dp"
-            android:textColor="@color/colorTextWhite"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            tools:text="NAMA" />
-
-        <TextView
-            android:id="@+id/tvProfileBio"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/materialTab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tvProfileName"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:gravity="center_horizontal"
-            android:textColor="@color/colorTextWhite"
-            android:textStyle="italic"
-            tools:text="Bio" />
+            android:background="@color/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@+id/rlProfileInfo"
+            app:tabTextColor="@color/colorTextWhite" />
 
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlProfileInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialTab">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgProfilePhoto"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginVertical="16dp"
+                android:src="@mipmap/ic_launcher"
+                tools:src="@tools:sample/avatars" />
 
-    </androidx.viewpager.widget.ViewPager>
+            <TextView
+                android:id="@+id/tvProfileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgProfilePhoto"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/colorTextWhite"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                tools:text="NAMA" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tvProfileBio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvProfileName"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="24dp"
+                android:gravity="center_horizontal"
+                android:textColor="@color/colorTextWhite"
+                android:textStyle="italic"
+                tools:text="Bio" />
+
+        </RelativeLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/materialTab">
+
+        </androidx.viewpager.widget.ViewPager>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
