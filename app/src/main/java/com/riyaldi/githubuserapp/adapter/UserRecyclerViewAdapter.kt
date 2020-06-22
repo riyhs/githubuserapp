@@ -1,6 +1,5 @@
 package com.riyaldi.githubuserapp.adapter
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -30,10 +29,10 @@ class UserRecyclerViewAdapter(private val listUser: ArrayList<User>) : RecyclerV
 
     @Suppress("DEPRECATION")
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        @SuppressLint("SetTextI18n")
         fun bind(user: User) {
             with(itemView){
-                tvName.text = user.name + " " + user.username
+                tvName.text = user.name
+                tvUsername.text = user.username
                 tvFollowers.text = user.followers
                 tvFollowing.text = user.following
                 tvRepo.text = user.repositories
