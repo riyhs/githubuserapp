@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#24292E</color>
+    <color name="colorPrimaryDark">#1A1D1E</color>
+    <color name="colorAccent">#0B74DD</color>
+<!--    <color name="colorAccent">#F6F8FA</color>-->
+    <color name="colorGithubBorder">#D1D5DA</color>
+    <color name="colorTextDark">#8A000000</color>
+    <color name="colorTextWhite">#ffffff</color>
+</resources>
