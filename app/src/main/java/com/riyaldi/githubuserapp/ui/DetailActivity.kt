@@ -1,4 +1,4 @@
-package com.riyaldi.githubuserapp.activity
+package com.riyaldi.githubuserapp.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle

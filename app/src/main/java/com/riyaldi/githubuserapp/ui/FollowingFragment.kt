@@ -1,11 +1,11 @@
-package com.riyaldi.githubuserapp.activity
+package com.riyaldi.githubuserapp.ui
 
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.SearchView
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
@@ -13,87 +13,73 @@ import com.riyaldi.githubuserapp.R
 import com.riyaldi.githubuserapp.adapter.UserRecyclerViewAdapter
 import com.riyaldi.githubuserapp.data.User
 import cz.msebera.android.httpclient.Header
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_following.*
+import org.json.JSONArray
 import org.json.JSONObject
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class MainActivity : AppCompatActivity() {
+class FollowingFragment : Fragment() {
 
-    private var list = ArrayList<User>()
+    private val listFollowing = arrayListOf<User>()
 
     // LoopJ
     private val client = AsyncHttpClient()
     private val mToken = "6d75636beac96e82445c4ae9e66a1084a7bd38ca"
 
-    companion object{
-        private val TAG = MainActivity::class.java.simpleName
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_following, container, false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        pbMain.visibility = View.INVISIBLE
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        searchUser()
-        showRecyclerList()
+        val activity: DetailActivity = activity as DetailActivity
+        val user: User = activity.getMyData()
+
+        getSimpleUserData(user.username)
+        showRecyclerView()
     }
 
-    private fun searchUser(){
-        svUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
-                androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null) {
-                    if (query.isNotEmpty()) {
-                        pbMain.visibility = View.VISIBLE
-                        list.clear()
-                        getSimpleUserData(query)
-                    }
-                }
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-
-        })
+    private fun showRecyclerView() {
+        rvFragmentFollowing.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = UserRecyclerViewAdapter(listFollowing)
+        }
     }
 
-    private fun getSimpleUserData(searchText: String) {
-        pbMain.visibility = View.VISIBLE
+    private fun getSimpleUserData(login: String) {
+        pbFollowing.visibility = View.VISIBLE
 
-        val urlSearch = "https://api.github.com/search/users?q=$searchText"
+        val urlSearch = "https://api.github.com/users/$login/following"
 
         client.addHeader("Authorization", "token $mToken")
         client.addHeader("User-Agent", "request")
 
         client.get(urlSearch, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<out Header>?, responseBody: ByteArray?) {
-                pbMain.visibility = View.INVISIBLE
+                pbFollowing.visibility = View.INVISIBLE
 
                 val result = responseBody?.let { String(it) }
-                Log.d(TAG, result)
 
                 try {
-                    val responseObject = JSONObject(result)
-                    val items = responseObject.getJSONArray("items")
+                    val responseArray = JSONArray(result)
 
-                    for (i in 0 until items.length()) {
-                        val item = items.getJSONObject(i)
+                    for (i in 0 until responseArray.length()) {
+                        val item = responseArray.getJSONObject(i)
                         val username = item.getString("login")
 
                         getDetailUserData(username)
                     }
 
-                    rvMain.adapter = UserRecyclerViewAdapter(list)
+                    rvFragmentFollowing.adapter = UserRecyclerViewAdapter(listFollowing)
                 } catch (e: Exception) {
-                    Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
                     e.printStackTrace()
                 }
             }
 
             override fun onFailure(statusCode: Int, headers: Array<out Header>?, responseBody: ByteArray?, error: Throwable?) {
-                pbMain.visibility = View.INVISIBLE
+                pbFollowing.visibility = View.INVISIBLE
 
                 val errorMessage = when (statusCode) {
                     401 -> "$statusCode : Bad Request"
@@ -101,14 +87,14 @@ class MainActivity : AppCompatActivity() {
                     404 -> "$statusCode : Not Found"
                     else -> "$statusCode : ${error?.message}"
                 }
-                Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
             }
 
         })
     }
 
     private fun getDetailUserData(username: String) {
-        pbMain.visibility = View.VISIBLE
+        pbFollowing.visibility = View.VISIBLE
         val urlDetailUser = "https://api.github.com/users/$username"
 
         client.addHeader("Authorization", "token $mToken")
@@ -116,10 +102,9 @@ class MainActivity : AppCompatActivity() {
 
         client.get(urlDetailUser, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<out Header>?, responseBody: ByteArray?) {
-                pbMain.visibility = View.INVISIBLE
+                pbFollowing.visibility = View.INVISIBLE
 
                 val result = responseBody?.let { String(it) }
-                Log.d(TAG, result)
 
                 try {
                     val responseObject = JSONObject(result)
@@ -148,19 +133,16 @@ class MainActivity : AppCompatActivity() {
                         repositories = repositories,
                         photoUrl = photoUrl
                     )
-                    list.add(user)
-                    rvMain.adapter =
-                        UserRecyclerViewAdapter(
-                            list
-                        )
+                    listFollowing.add(user)
+                    rvFragmentFollowing.adapter = UserRecyclerViewAdapter(listFollowing)
                 } catch (e: Exception) {
-                    Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
                     e.printStackTrace()
                 }
             }
 
             override fun onFailure(statusCode: Int, headers: Array<out Header>?, responseBody: ByteArray?, error: Throwable?) {
-                pbMain.visibility = View.INVISIBLE
+                pbFollowing.visibility = View.INVISIBLE
 
                 val errorMessage = when (statusCode) {
                     401 -> "$statusCode : Bad Request"
@@ -168,15 +150,9 @@ class MainActivity : AppCompatActivity() {
                     404 -> "$statusCode : Not Found"
                     else -> "$statusCode : ${error?.message}"
                 }
-                Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
             }
 
         })
-    }
-
-    private fun showRecyclerList() {
-        rvMain.setHasFixedSize(true)
-        rvMain.layoutManager = LinearLayoutManager(this)
-        rvMain.adapter = UserRecyclerViewAdapter(list)
     }
 }

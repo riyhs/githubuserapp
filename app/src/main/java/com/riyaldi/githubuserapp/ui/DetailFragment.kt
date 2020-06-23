@@ -1,4 +1,4 @@
-package com.riyaldi.githubuserapp.tabfragment
+package com.riyaldi.githubuserapp.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.riyaldi.githubuserapp.R
-import com.riyaldi.githubuserapp.activity.DetailActivity
+import com.riyaldi.githubuserapp.ui.DetailActivity
 import com.riyaldi.githubuserapp.data.User
 import kotlinx.android.synthetic.main.fragment_detail.*
 

@@ -1,4 +1,4 @@
-package com.riyaldi.githubuserapp.tabfragment
+package com.riyaldi.githubuserapp.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import com.riyaldi.githubuserapp.R
-import com.riyaldi.githubuserapp.activity.DetailActivity
 import com.riyaldi.githubuserapp.adapter.UserRecyclerViewAdapter
 import com.riyaldi.githubuserapp.data.User
 import cz.msebera.android.httpclient.Header
