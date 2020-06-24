@@ -62,7 +62,6 @@ class DetailActivity : AppCompatActivity() {
         val sectionsPagerAdapter = SectionsPagerAdapter(this, supportFragmentManager)
         viewPager.adapter = sectionsPagerAdapter
         materialTab.setupWithViewPager(viewPager)
-
         supportActionBar?.elevation = 0f
     }
 }

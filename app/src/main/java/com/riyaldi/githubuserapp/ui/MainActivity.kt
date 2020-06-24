@@ -30,19 +30,8 @@ class MainActivity : AppCompatActivity() {
         mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
 
         searchUser()
-        showRecyclerList()
         setViewModel()
-    }
-
-    private fun setViewModel() {
-        mainViewModel.getUserData().observe(this@MainActivity, Observer { liveUserData ->
-            if (liveUserData != null) {
-                showLoading(true)
-                list = liveUserData
-                rvMain.adapter = UserRecyclerViewAdapter(list)
-                showLoading(false)
-            }
-        })
+        showRecyclerList()
     }
 
     private fun searchUser(){
@@ -51,17 +40,27 @@ class MainActivity : AppCompatActivity() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (query != null) {
                     if (query.isNotEmpty()) {
-                        showLoading(true)
                         list.clear()
                         mainViewModel.setUserData(query, applicationContext)
                         setViewModel()
-                        showLoading(true)
                     }
                 }
+                showLoading(true)
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean = false
+        })
+    }
+
+    private fun setViewModel() {
+        mainViewModel.getUserData().observe(this@MainActivity, Observer { liveUserData ->
+            showLoading(true)
+            if (liveUserData != null) {
+                list = liveUserData
+                rvMain.adapter = UserRecyclerViewAdapter(list)
+                showLoading(false)
+            }
         })
     }
 

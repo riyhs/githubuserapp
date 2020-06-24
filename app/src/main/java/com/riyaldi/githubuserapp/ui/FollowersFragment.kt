@@ -27,7 +27,7 @@ class FollowersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showLoading(false)
+        showLoading(true)
 
         val activity: DetailActivity = activity as DetailActivity
         val user: User = activity.getMyData()
@@ -49,9 +49,9 @@ class FollowersFragment : Fragment() {
         viewModel.getUserData().observe(this, Observer { liveUserData ->
             if (liveUserData != null) {
                 listFollowers = liveUserData
-                rvFragmentFollowers.adapter = UserRecyclerViewAdapter(listFollowers)
-                showLoading(false)
             }
+            rvFragmentFollowers.adapter = UserRecyclerViewAdapter(listFollowers)
+            showLoading(false)
         })
     }
 

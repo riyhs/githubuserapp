@@ -1,15 +1,18 @@
 package com.riyaldi.githubuserapp.adapter
 
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.riyaldi.githubuserapp.R
 import com.riyaldi.githubuserapp.ui.DetailActivity
 import com.riyaldi.githubuserapp.data.User
+import kotlinx.android.synthetic.main.fragment_followers.view.*
 import kotlinx.android.synthetic.main.user_item.view.*
 
 class UserRecyclerViewAdapter(private val listUser: ArrayList<User>) : RecyclerView.Adapter<UserRecyclerViewAdapter.ListViewHolder>() {
