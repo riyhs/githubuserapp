@@ -8,4 +8,5 @@
     <string name="username">Username</string>
     <string name="name">Name</string>
     <string name="company">Company</string>
+    <string name="hint">Search Username</string>
 </resources>
