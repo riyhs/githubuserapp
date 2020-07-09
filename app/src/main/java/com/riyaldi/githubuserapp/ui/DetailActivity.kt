@@ -2,11 +2,14 @@ package com.riyaldi.githubuserapp.ui
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.riyaldi.githubuserapp.R
 import com.riyaldi.githubuserapp.adapter.SectionsPagerAdapter
 import com.riyaldi.githubuserapp.data.User
+import com.riyaldi.githubuserapp.model.FavUserViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.coroutines.InternalCoroutinesApi
 
@@ -19,6 +22,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private lateinit var user : User
+    private lateinit var viewModel: FavUserViewModel
 
     private val userDetail by lazy {
         User(
@@ -42,8 +46,10 @@ class DetailActivity : AppCompatActivity() {
         setViewPager()
 
         user = intent.getParcelableExtra(EXTRA_USER) as User
+        viewModel = ViewModelProvider(this).get(FavUserViewModel::class.java)
 
         setDetailInfo()
+        addFavUser()
     }
 
     fun getMyData(): User {
@@ -65,6 +71,13 @@ class DetailActivity : AppCompatActivity() {
         viewPager.adapter = sectionsPagerAdapter
         materialTab.setupWithViewPager(viewPager)
         supportActionBar?.elevation = 0f
+    }
+
+    private fun addFavUser() {
+        fabLoveInDetail.setOnClickListener {
+            viewModel.addFavUser(user.name)
+            Toast.makeText(this@DetailActivity, "Clicked", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }
