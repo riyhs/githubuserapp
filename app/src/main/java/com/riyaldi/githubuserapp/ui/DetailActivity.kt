@@ -75,7 +75,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun addFavUser() {
         fabLoveInDetail.setOnClickListener {
-            viewModel.addFavUser(user.name)
+            viewModel.addFavUser("HAhahaha")
             Toast.makeText(this@DetailActivity, "Clicked", Toast.LENGTH_SHORT).show()
         }
     }

@@ -7,11 +7,9 @@ import com.riyaldi.githubuserapp.db.FavUser
 import com.riyaldi.githubuserapp.db.FavUserDAO
 import com.riyaldi.githubuserapp.db.FavUserDatabase
 import com.riyaldi.githubuserapp.db.FavUserRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
+@InternalCoroutinesApi
 class FavUserViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: FavUserRepository
     private val favUserDAO: FavUserDAO = FavUserDatabase.getInstance(application).favUserDAO()

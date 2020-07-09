@@ -4,27 +4,30 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import kotlinx.coroutines.InternalCoroutinesApi
 
-@Database(entities = [FavUser::class], version = 1, exportSchema = false)
+@Database(entities = [FavUser::class], version = 4)
 abstract class FavUserDatabase : RoomDatabase() {
 
     abstract fun favUserDAO(): FavUserDAO
 
-    companion object {
+    companion object{
         @Volatile
         private var INSTANCE: FavUserDatabase? = null
 
-        fun getInstance(context: Context): FavUserDatabase {
-            val tempInstance = INSTANCE
-            if (tempInstance != null) {
-                return tempInstance
-            }
+        @InternalCoroutinesApi
+        fun getInstance(context: Context) : FavUserDatabase {
             synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    FavUserDatabase::class.java,
-                    "fav_user_database").fallbackToDestructiveMigration().build()
-                INSTANCE = instance
+                var instance = INSTANCE
+
+                if (instance == null) {
+                    instance = Room.databaseBuilder(
+                        context.applicationContext,
+                        FavUserDatabase::class.java,
+                        "fav_user_database_rev1"
+                    ).fallbackToDestructiveMigration().build()
+                    INSTANCE = instance
+                }
                 return instance
             }
         }
