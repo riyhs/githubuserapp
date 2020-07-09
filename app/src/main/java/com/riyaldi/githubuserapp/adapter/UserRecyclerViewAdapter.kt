@@ -14,6 +14,7 @@ import com.riyaldi.githubuserapp.ui.DetailActivity
 import com.riyaldi.githubuserapp.data.User
 import kotlinx.android.synthetic.main.fragment_followers.view.*
 import kotlinx.android.synthetic.main.user_item.view.*
+import kotlinx.coroutines.InternalCoroutinesApi
 
 class UserRecyclerViewAdapter(private val listUser: ArrayList<User>) : RecyclerView.Adapter<UserRecyclerViewAdapter.ListViewHolder>() {
 
@@ -26,12 +27,14 @@ class UserRecyclerViewAdapter(private val listUser: ArrayList<User>) : RecyclerV
         return listUser.size
     }
 
+    @InternalCoroutinesApi
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         holder.bind(listUser[position])
     }
 
     @Suppress("DEPRECATION")
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        @InternalCoroutinesApi
         fun bind(user: User) {
             with(itemView){
                 tvName.text = user.name

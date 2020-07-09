@@ -8,7 +8,9 @@ import com.riyaldi.githubuserapp.R
 import com.riyaldi.githubuserapp.adapter.SectionsPagerAdapter
 import com.riyaldi.githubuserapp.data.User
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@InternalCoroutinesApi
 @Suppress("DEPRECATION")
 class DetailActivity : AppCompatActivity() {
 
@@ -64,4 +66,5 @@ class DetailActivity : AppCompatActivity() {
         materialTab.setupWithViewPager(viewPager)
         supportActionBar?.elevation = 0f
     }
+
 }
