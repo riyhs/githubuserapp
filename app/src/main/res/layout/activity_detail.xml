@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:contentDescription="Fab Like button"
+        android:contentDescription="@string/fab_like_button"
         app:maxImageSize="24dp"
         app:srcCompat="@drawable/ic_love_border" />
 

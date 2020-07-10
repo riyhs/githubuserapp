@@ -9,9 +9,8 @@ import kotlinx.android.parcel.Parcelize
 @Entity(tableName = "fav_user_table")
 @Parcelize
 data class FavUser (
-    @PrimaryKey(autoGenerate = true) var id : Int,
+    @PrimaryKey(autoGenerate = false) @ColumnInfo(name = "username") var username: String,
     @ColumnInfo(name = "name") var name: String,
-    @ColumnInfo(name = "username") var username: String,
     @ColumnInfo(name = "company") var company: String,
     @ColumnInfo(name = "location") var location: String,
     @ColumnInfo(name = "bio") var bio: String,

@@ -1,20 +1,15 @@
 package com.riyaldi.githubuserapp.adapter
 
 import android.content.Intent
-import android.util.Log
-import android.util.LogPrinter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.riyaldi.githubuserapp.R
-import com.riyaldi.githubuserapp.ui.DetailActivity
-import com.riyaldi.githubuserapp.data.User
 import com.riyaldi.githubuserapp.db.FavUser
-import kotlinx.android.synthetic.main.fragment_followers.view.*
+import com.riyaldi.githubuserapp.ui.DetailActivity
 import kotlinx.android.synthetic.main.user_item.view.*
 import kotlinx.coroutines.InternalCoroutinesApi
 
@@ -51,7 +46,6 @@ class FavUserAdapter(private val favUser: List<FavUser>) : RecyclerView.Adapter<
 
                 itemView.setOnClickListener {
                     val userDetail = FavUser(
-                        id = favUser.id,
                         name = favUser.name,
                         username = favUser.username,
                         company = favUser.company,
@@ -65,9 +59,9 @@ class FavUserAdapter(private val favUser: List<FavUser>) : RecyclerView.Adapter<
                         followingUrl = favUser.followingUrl
                     )
 
-//                    val moveWithObjectIntent = Intent(it.context, DetailActivity::class.java)
-//                    moveWithObjectIntent.putExtra(DetailActivity.EXTRA_USER, userDetail)
-//                    it.context.startActivity(moveWithObjectIntent)
+                    val moveWithObjectIntent = Intent(it.context, DetailActivity::class.java)
+                    moveWithObjectIntent.putExtra(DetailActivity.EXTRA_FAV_USER, userDetail)
+                    it.context.startActivity(moveWithObjectIntent)
                 }
             }
         }

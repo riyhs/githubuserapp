@@ -31,18 +31,18 @@ class FavouriteUserActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        return when (item.itemId) {
             R.id.favMenu -> {
                 val intent = Intent(this@FavouriteUserActivity, FavouriteUserActivity::class.java)
                 startActivity(intent)
-                return true
+                true
             }
             R.id.setting_menu -> {
                 val intent = Intent(this@FavouriteUserActivity, SettingsActivity::class.java)
                 startActivity(intent)
-                return true
+                true
             }
-            else -> return true
+            else -> true
         }
     }
 
@@ -56,9 +56,5 @@ class FavouriteUserActivity : AppCompatActivity() {
                 adapter = FavUserAdapter(liveUserData)
             }
         })
-
     }
-
-
-
 }

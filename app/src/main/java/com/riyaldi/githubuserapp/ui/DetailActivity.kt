@@ -7,11 +7,15 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.riyaldi.githubuserapp.R
 import com.riyaldi.githubuserapp.adapter.SectionsPagerAdapter
 import com.riyaldi.githubuserapp.data.User
+import com.riyaldi.githubuserapp.db.FavUser
+import com.riyaldi.githubuserapp.db.FavUserDatabase
 import com.riyaldi.githubuserapp.model.FavUserViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -22,8 +26,10 @@ class DetailActivity : AppCompatActivity() {
 
     companion object {
         val EXTRA_USER = "extra_user"
+        val EXTRA_FAV_USER = "extra_fav_user"
     }
 
+    private lateinit var favUser : FavUser
     private lateinit var user : User
     private lateinit var viewModel: FavUserViewModel
     private var isFav: Boolean = false
@@ -51,9 +57,12 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        favUser = intent.getParcelableExtra(EXTRA_FAV_USER) as FavUser
         user = intent.getParcelableExtra(EXTRA_USER) as User
+
         viewModel = ViewModelProvider(this).get(FavUserViewModel::class.java)
 
+        isLiked()
         setDetailInfo()
         addFavUser()
     }
@@ -80,11 +89,6 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
     fun getMyData(): User {
         return userDetail
     }
@@ -106,23 +110,61 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.elevation = 0f
     }
 
+    private fun changeFabIcon(state: Boolean) {
+        if (state) {
+            fabLoveInDetail.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_love_filled))
+        } else {
+            fabLoveInDetail.setImageDrawable(ContextCompat.getDrawable(applicationContext, R.drawable.ic_love_border))
+        }
+    }
+
+    private fun isLiked(){
+        val db = FavUserDatabase.getInstance(applicationContext)
+        val dao = db.favUserDAO()
+
+        dao.getByUserName(user.username).observe(this, Observer { liveUserData ->
+            if (liveUserData.isNotEmpty() && liveUserData[0].username.isNotEmpty()) {
+                isFav = true
+                changeFabIcon(isFav)
+            } else {
+                isFav = false
+                changeFabIcon(isFav)
+            }
+        })
+    }
+
     private fun addFavUser() {
-
         fabLoveInDetail.setOnClickListener {
-            isFav = true
-
-            viewModel.addFavUser(name = user.name,
-                username = user.username,
-                company = user.company,
-                bio = user.bio,
-                repositories = user.repositories,
-                location = user.location,
-                following = user.following,
-                followers = user.followers,
-                followingUrl = user.followingUrl,
-                followersUrl = user.followersUrl,
-                photoUrl = user.photoUrl)
-            Toast.makeText(this@DetailActivity, "Clicked", Toast.LENGTH_SHORT).show()
+            isLiked()
+            if (!isFav) {
+                viewModel.addFavUser(
+                    name = user.name,
+                    username = user.username,
+                    company = user.company,
+                    bio = user.bio,
+                    repositories = user.repositories,
+                    location = user.location,
+                    following = user.following,
+                    followers = user.followers,
+                    followingUrl = user.followingUrl,
+                    followersUrl = user.followersUrl,
+                    photoUrl = user.photoUrl)
+                Toast.makeText(this@DetailActivity, "Added to Favourite", Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.delete(
+                    name = user.name,
+                    username = user.username,
+                    company = user.company,
+                    bio = user.bio,
+                    repositories = user.repositories,
+                    location = user.location,
+                    following = user.following,
+                    followers = user.followers,
+                    followingUrl = user.followingUrl,
+                    followersUrl = user.followersUrl,
+                    photoUrl = user.photoUrl)
+                Toast.makeText(this@DetailActivity, "Removed from Favourite", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 }

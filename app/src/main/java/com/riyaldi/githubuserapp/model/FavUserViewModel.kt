@@ -3,11 +3,13 @@ package com.riyaldi.githubuserapp.model
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.riyaldi.githubuserapp.db.FavUser
 import com.riyaldi.githubuserapp.db.FavUserDAO
 import com.riyaldi.githubuserapp.db.FavUserDatabase
 import com.riyaldi.githubuserapp.db.FavUserRepository
 import kotlinx.coroutines.*
+import kotlin.coroutines.coroutineContext
 
 @InternalCoroutinesApi
 class FavUserViewModel(application: Application) : AndroidViewModel(application) {
@@ -39,7 +41,7 @@ class FavUserViewModel(application: Application) : AndroidViewModel(application)
                    followingUrl: String,
                    photoUrl: String) {
         uiScope.launch {
-            repository.insert(FavUser(id = 0,
+            repository.insert(FavUser(
                 name =  name,
                 username = username,
                 company = company,
@@ -54,8 +56,35 @@ class FavUserViewModel(application: Application) : AndroidViewModel(application)
         }
     }
 
-    fun getById(id: Int){
-
+    fun delete(
+            name: String,
+            username: String,
+            company: String,
+            location: String,
+            bio: String,
+            repositories: String,
+            followers: String,
+            following: String,
+            followersUrl: String,
+            followingUrl: String,
+            photoUrl: String) {
+        uiScope.launch {
+            repository.delete(
+                FavUser(
+                    name = name,
+                    username = username,
+                    company = company,
+                    location = location,
+                    bio = bio,
+                    repositories = repositories,
+                    followers = followers,
+                    following = following,
+                    followersUrl = followersUrl,
+                    followingUrl = followingUrl,
+                    photoUrl = photoUrl
+                )
+            )
+        }
     }
 
     override fun onCleared() {

@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import kotlinx.coroutines.InternalCoroutinesApi
 
-@Database(entities = [FavUser::class], version = 5)
+@Database(entities = [FavUser::class], version = 1)
 abstract class FavUserDatabase : RoomDatabase() {
 
     abstract fun favUserDAO(): FavUserDAO
@@ -24,7 +24,7 @@ abstract class FavUserDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         FavUserDatabase::class.java,
-                        "fav_user_database_rev1"
+                        "fav_user_database"
                     ).fallbackToDestructiveMigration().build()
                     INSTANCE = instance
                 }
