@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import kotlinx.coroutines.InternalCoroutinesApi
 
-@Database(entities = [FavUser::class], version = 4)
+@Database(entities = [FavUser::class], version = 5)
 abstract class FavUserDatabase : RoomDatabase() {
 
     abstract fun favUserDAO(): FavUserDAO

@@ -27,10 +27,35 @@ class FavUserViewModel(application: Application) : AndroidViewModel(application)
         _favUser = repository.allFavUser
     }
 
-    fun addFavUser(text: String) {
+    fun addFavUser(name: String,
+                   username: String,
+                   company: String,
+                   location: String,
+                   bio: String,
+                   repositories: String,
+                   followers: String,
+                   following: String,
+                   followersUrl: String,
+                   followingUrl: String,
+                   photoUrl: String) {
         uiScope.launch {
-            repository.insert(FavUser(0, text))
+            repository.insert(FavUser(id = 0,
+                name =  name,
+                username = username,
+                company = company,
+                location = location,
+                bio = bio,
+                repositories = repositories,
+                followers = followers,
+                following = following,
+                followersUrl = followersUrl,
+                followingUrl = followingUrl,
+                photoUrl = photoUrl))
         }
+    }
+
+    fun getById(id: Int){
+
     }
 
     override fun onCleared() {
