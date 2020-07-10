@@ -1,6 +1,9 @@
 package com.riyaldi.githubuserapp.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
@@ -12,7 +15,9 @@ import com.riyaldi.githubuserapp.adapter.UserRecyclerViewAdapter
 import com.riyaldi.githubuserapp.data.User
 import com.riyaldi.githubuserapp.model.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.InternalCoroutinesApi
 
+@InternalCoroutinesApi
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +37,28 @@ class MainActivity : AppCompatActivity() {
         searchUser()
         setViewModel()
         showRecyclerList()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.favMenu -> {
+                val intent = Intent(this@MainActivity, FavouriteUserActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.setting_menu -> {
+                val intent = Intent(this@MainActivity, SettingsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            else -> return true
+        }
     }
 
     private fun searchUser(){

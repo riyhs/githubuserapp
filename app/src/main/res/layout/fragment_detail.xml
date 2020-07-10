@@ -1,73 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:fillViewport="true"
     android:layout_height="match_parent"
+    android:layout_width="match_parent"
     tools:context=".ui.DetailFragment">
 
-    <!--    name   -->
-    <TextView
-        android:id="@+id/tvDetailNameText"
-        style="@style/TextInfoTitle"
-        app:layout_constraintStart_toStartOf="@+id/tvDetailName"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/name" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvDetailName"
-        style="@style/TextInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDetailNameText"
-        tools:text="Name" />
+        <!--    name   -->
+        <TextView
+            android:id="@+id/tvDetailNameText"
+            style="@style/TextInfoTitle"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailName"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/name" />
 
-    <!--    username   -->
-    <TextView
-        android:id="@+id/tvDetailUsernameText"
-        style="@style/TextInfoTitle"
-        app:layout_constraintStart_toStartOf="@+id/tvDetailName"
-        app:layout_constraintTop_toBottomOf="@id/tvDetailName"
-        android:text="@string/username"  />
+        <TextView
+            android:id="@+id/tvDetailName"
+            style="@style/TextInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailNameText"
+            tools:text="Name" />
 
-    <TextView
-        android:id="@+id/tvDetailUsername"
-        style="@style/TextInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDetailUsernameText"
-        tools:text="Username" />
+        <!--    username   -->
+        <TextView
+            android:id="@+id/tvDetailUsernameText"
+            style="@style/TextInfoTitle"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailName"
+            app:layout_constraintTop_toBottomOf="@id/tvDetailName"
+            android:text="@string/username"  />
 
-    <!--    location   -->
-    <TextView
-        android:id="@+id/tvDetailLocationText"
-        style="@style/TextInfoTitle"
-        app:layout_constraintStart_toStartOf="@+id/tvDetailLocation"
-        app:layout_constraintTop_toBottomOf="@id/tvDetailUsername"
-        android:text="@string/location" />
+        <TextView
+            android:id="@+id/tvDetailUsername"
+            style="@style/TextInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailUsernameText"
+            tools:text="Username" />
 
-    <TextView
-        android:id="@+id/tvDetailLocation"
-        style="@style/TextInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDetailLocationText"
-        tools:text="Location" />
+        <!--    location   -->
+        <TextView
+            android:id="@+id/tvDetailLocationText"
+            style="@style/TextInfoTitle"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailLocation"
+            app:layout_constraintTop_toBottomOf="@id/tvDetailUsername"
+            android:text="@string/location" />
 
-    <!--    location   -->
-    <TextView
-        android:id="@+id/tvDetailCompanyText"
-        style="@style/TextInfoTitle"
-        app:layout_constraintStart_toStartOf="@+id/tvDetailCompany"
-        app:layout_constraintTop_toBottomOf="@id/tvDetailLocation"
-        android:text="@string/company" />
+        <TextView
+            android:id="@+id/tvDetailLocation"
+            style="@style/TextInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailLocationText"
+            tools:text="Location" />
 
-    <TextView
-        android:id="@+id/tvDetailCompany"
-        style="@style/TextInfo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDetailCompanyText"
-        tools:text="Company" />
+        <!--    location   -->
+        <TextView
+            android:id="@+id/tvDetailCompanyText"
+            style="@style/TextInfoTitle"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailCompany"
+            app:layout_constraintTop_toBottomOf="@id/tvDetailLocation"
+            android:text="@string/company" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tvDetailCompany"
+            style="@style/TextInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailCompanyText"
+            tools:text="Company" />
+
+        <!--    location   -->
+        <TextView
+            android:id="@+id/tvDetailRepoText"
+            style="@style/TextInfoTitle"
+            app:layout_constraintStart_toStartOf="@+id/tvDetailRepo"
+            app:layout_constraintTop_toBottomOf="@id/tvDetailCompany"
+            android:text="@string/repositories" />
+
+        <TextView
+            android:id="@+id/tvDetailRepo"
+            style="@style/TextInfo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetailRepoText"
+            tools:text="1990 Repositories" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

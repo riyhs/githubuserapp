@@ -14,6 +14,7 @@ import com.riyaldi.githubuserapp.adapter.UserRecyclerViewAdapter
 import com.riyaldi.githubuserapp.data.User
 import com.riyaldi.githubuserapp.model.DetailViewModel
 import kotlinx.android.synthetic.main.fragment_following.*
+import kotlinx.coroutines.InternalCoroutinesApi
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class FollowingFragment : Fragment() {
@@ -26,6 +27,7 @@ class FollowingFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_following, container, false)
     }
 
+    @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.i("Following", "onViewCreated start")
@@ -48,7 +50,7 @@ class FollowingFragment : Fragment() {
     }
 
     private fun setViewModel() {
-        viewModel.getUserData().observe(this, Observer { liveUserData ->
+        viewModel.getUserData().observe(viewLifecycleOwner, Observer { liveUserData ->
             if (liveUserData != null) {
                 listFollowing = liveUserData
             } else listFollowing
