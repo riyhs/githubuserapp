@@ -29,7 +29,6 @@ class DetailActivity : AppCompatActivity() {
         val EXTRA_FAV_USER = "extra_fav_user"
     }
 
-    private lateinit var favUser : FavUser
     private lateinit var user : User
     private lateinit var viewModel: FavUserViewModel
     private var isFav: Boolean = false
@@ -57,7 +56,6 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        favUser = intent.getParcelableExtra(EXTRA_FAV_USER) as FavUser
         user = intent.getParcelableExtra(EXTRA_USER) as User
 
         viewModel = ViewModelProvider(this).get(FavUserViewModel::class.java)
@@ -65,28 +63,6 @@ class DetailActivity : AppCompatActivity() {
         isLiked()
         setDetailInfo()
         addFavUser()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.favMenu -> {
-                val intent = Intent(this@DetailActivity, FavouriteUserActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-            R.id.setting_menu -> {
-                val intent = Intent(this@DetailActivity, SettingsActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-            else -> return true
-        }
     }
 
     fun getMyData(): User {
@@ -121,7 +97,6 @@ class DetailActivity : AppCompatActivity() {
     private fun isLiked(){
         val db = FavUserDatabase.getInstance(applicationContext)
         val dao = db.favUserDAO()
-
         dao.getByUserName(user.username).observe(this, Observer { liveUserData ->
             if (liveUserData.isNotEmpty() && liveUserData[0].username.isNotEmpty()) {
                 isFav = true
@@ -165,6 +140,28 @@ class DetailActivity : AppCompatActivity() {
                     photoUrl = user.photoUrl)
                 Toast.makeText(this@DetailActivity, "Removed from Favourite", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.favMenu -> {
+                val intent = Intent(this@DetailActivity, FavouriteUserActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.setting_menu -> {
+                val intent = Intent(this@DetailActivity, SettingsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            else -> return true
         }
     }
 }
