@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -29,6 +31,7 @@ class FollowersFragment : Fragment() {
     @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         showLoading(true)
 
         val activity: DetailActivity = activity as DetailActivity
@@ -41,10 +44,10 @@ class FollowersFragment : Fragment() {
     }
 
     private fun showData(username: String) {
-        showLoading(true)
         listFollowers.clear()
         viewModel.setUserData(username, requireContext(), "followers")
         setViewModel()
+        showLoading(false)
     }
 
     private fun setViewModel() {
@@ -53,7 +56,6 @@ class FollowersFragment : Fragment() {
                 listFollowers = liveUserData
             }
             rvFragmentFollowers.adapter = UserRecyclerViewAdapter(listFollowers)
-            showLoading(false)
         })
     }
 
@@ -66,9 +68,9 @@ class FollowersFragment : Fragment() {
 
     private fun showLoading(state: Boolean) {
         if (state) {
-            pbFollowers.visibility = View.VISIBLE
+            pbFollowers.isVisible = true
         } else {
-            pbFollowers.visibility = View.GONE
+            pbFollowers.isGone = true
         }
     }
 }

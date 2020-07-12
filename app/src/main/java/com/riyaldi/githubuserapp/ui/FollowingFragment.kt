@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -30,7 +32,7 @@ class FollowingFragment : Fragment() {
     @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i("Following", "onViewCreated start")
+
         showLoading(true)
 
         val activity: DetailActivity = activity as DetailActivity
@@ -47,6 +49,7 @@ class FollowingFragment : Fragment() {
         listFollowing.clear()
         viewModel.setUserData(username, requireContext(), "following")
         setViewModel()
+        showLoading(false)
     }
 
     private fun setViewModel() {
@@ -55,14 +58,12 @@ class FollowingFragment : Fragment() {
                 listFollowing = liveUserData
             } else listFollowing
             rvFragmentFollowing.adapter = UserRecyclerViewAdapter(listFollowing)
-            showLoading(false)
         })
     }
 
     private fun showRecyclerView() {
         rvFragmentFollowing.apply {
             Log.i("Following", "recyclerView inner start")
-            showLoading(true)
             layoutManager = LinearLayoutManager(activity)
             adapter = UserRecyclerViewAdapter(listFollowing)
         }
@@ -71,9 +72,9 @@ class FollowingFragment : Fragment() {
     @Suppress("SameParameterValue")
     private fun showLoading(state: Boolean) {
         if (state) {
-            pbFollowing.visibility = View.VISIBLE
+            pbFollowing.isVisible = true
         } else {
-            pbFollowing.visibility = View.GONE
+            pbFollowing.isGone = true
         }
     }
 }

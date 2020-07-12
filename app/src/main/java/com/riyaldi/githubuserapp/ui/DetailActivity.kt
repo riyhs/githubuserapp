@@ -37,6 +37,7 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
         setViewPager()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -47,10 +48,10 @@ class DetailActivity : AppCompatActivity() {
         detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
 
         isLiked()
-        check()
+        setDetail()
     }
 
-    private fun check() {
+    private fun setDetail() {
         detailViewModel.getDetailUserData(username, applicationContext)
         detailViewModel.getUserData().observe(this, Observer { it ->
             addFavUser(it)
@@ -66,8 +67,6 @@ class DetailActivity : AppCompatActivity() {
     private fun setDetailInfo(user: User) {
         tvProfileName.text = user.name
         tvProfileBio.text = "\"${user.bio}\""
-
-        Log.i("HAHAHUHU", user.toString())
 
         Glide.with(this@DetailActivity)
             .load(user.photoUrl)

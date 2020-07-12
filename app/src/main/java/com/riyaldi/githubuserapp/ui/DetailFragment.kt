@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -12,6 +14,7 @@ import com.riyaldi.githubuserapp.R
 import com.riyaldi.githubuserapp.data.User
 import com.riyaldi.githubuserapp.model.DetailViewModel
 import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_followers.*
 import kotlinx.coroutines.InternalCoroutinesApi
 
 class DetailFragment : Fragment() {
@@ -26,6 +29,8 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showLoading(true)
+
         val activity: DetailActivity = activity as DetailActivity
         val username: String = activity.getMyData()
 
@@ -38,6 +43,7 @@ class DetailFragment : Fragment() {
         context?.let { detailViewModel.getDetailUserData(username, it) }
         detailViewModel.getUserData().observe(viewLifecycleOwner, Observer {
             showDetail(it)
+            showLoading(false)
         })
     }
 
@@ -48,5 +54,13 @@ class DetailFragment : Fragment() {
         tvDetailCompany.text = user.company
         tvDetailLocation.text = user.location
         tvDetailRepo.text = "${user.repositories} Repositories"
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            pbDetail.isVisible = true
+        } else {
+            pbDetail.isGone = true
+        }
     }
 }
