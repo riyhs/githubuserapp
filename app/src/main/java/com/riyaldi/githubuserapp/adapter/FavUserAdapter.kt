@@ -51,7 +51,7 @@ class FavUserAdapter(private val favUser: List<FavUser>) : RecyclerView.Adapter<
                     Toast.makeText(it.context, "Clicked", Toast.LENGTH_SHORT).show()
 
                     val moveWithObjectIntent = Intent(it.context, DetailActivity::class.java)
-                    moveWithObjectIntent.putExtra(DetailActivity.EXTRA_FAV_USER, favUserUsername)
+                    moveWithObjectIntent.putExtra(DetailActivity.EXTRA_USER, favUserUsername)
                     it.context.startActivity(moveWithObjectIntent)
                 }
             }

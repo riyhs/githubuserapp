@@ -39,28 +39,6 @@ class MainActivity : AppCompatActivity() {
         showRecyclerList()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.favMenu -> {
-                val intent = Intent(this@MainActivity, FavouriteUserActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-            R.id.setting_menu -> {
-                val intent = Intent(this@MainActivity, SettingsActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-            else -> return true
-        }
-    }
-
     private fun searchUser(){
         svUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
@@ -101,6 +79,28 @@ class MainActivity : AppCompatActivity() {
             pbMain.visibility = View.VISIBLE
         } else {
             pbMain.visibility = View.GONE
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.favMenu -> {
+                val intent = Intent(this@MainActivity, FavouriteUserActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.setting_menu -> {
+                val intent = Intent(this@MainActivity, SettingsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            else -> return true
         }
     }
 }

@@ -3,6 +3,7 @@ package com.riyaldi.githubuserapp.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -14,8 +15,8 @@ import com.bumptech.glide.Glide
 import com.riyaldi.githubuserapp.R
 import com.riyaldi.githubuserapp.adapter.SectionsPagerAdapter
 import com.riyaldi.githubuserapp.data.User
-import com.riyaldi.githubuserapp.db.FavUser
 import com.riyaldi.githubuserapp.db.FavUserDatabase
+import com.riyaldi.githubuserapp.model.DetailViewModel
 import com.riyaldi.githubuserapp.model.FavUserViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -26,28 +27,12 @@ class DetailActivity : AppCompatActivity() {
 
     companion object {
         val EXTRA_USER = "extra_user"
-        val EXTRA_FAV_USER = "extra_fav_user"
     }
 
-    private lateinit var user : User
-    private lateinit var viewModel: FavUserViewModel
+    private lateinit var username : String
+    private lateinit var favUserViewModel: FavUserViewModel
+    private lateinit var detailViewModel: DetailViewModel
     private var isFav: Boolean = false
-
-    private val userDetail by lazy {
-        User(
-            name = user.name,
-            username = user.username,
-            company = user.company,
-            location = user.location,
-            bio = user.bio,
-            repositories = user.repositories,
-            followers = user.followers,
-            following = user.following,
-            photoUrl = user.photoUrl,
-            followingUrl = user.followingUrl,
-            followersUrl = user.followersUrl
-        )
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,23 +41,33 @@ class DetailActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        user = intent.getParcelableExtra(EXTRA_USER) as User
+        username = intent.getStringExtra(EXTRA_USER) as String
 
-        viewModel = ViewModelProvider(this).get(FavUserViewModel::class.java)
+        favUserViewModel = ViewModelProvider(this).get(FavUserViewModel::class.java)
+        detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
 
         isLiked()
-        setDetailInfo()
-        addFavUser()
+        check()
     }
 
-    fun getMyData(): User {
-        return userDetail
+    private fun check() {
+        detailViewModel.getDetailUserData(username, applicationContext)
+        detailViewModel.getUserData().observe(this, Observer { it ->
+            addFavUser(it)
+            setDetailInfo(it)
+        })
+    }
+
+    fun getMyData(): String {
+        return username
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setDetailInfo() {
+    private fun setDetailInfo(user: User) {
         tvProfileName.text = user.name
         tvProfileBio.text = "\"${user.bio}\""
+
+        Log.i("HAHAHUHU", user.toString())
 
         Glide.with(this@DetailActivity)
             .load(user.photoUrl)
@@ -97,7 +92,7 @@ class DetailActivity : AppCompatActivity() {
     private fun isLiked(){
         val db = FavUserDatabase.getInstance(applicationContext)
         val dao = db.favUserDAO()
-        dao.getByUserName(user.username).observe(this, Observer { liveUserData ->
+        dao.getByUserName(username).observe(this, Observer { liveUserData ->
             if (liveUserData.isNotEmpty() && liveUserData[0].username.isNotEmpty()) {
                 isFav = true
                 changeFabIcon(isFav)
@@ -108,11 +103,12 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun addFavUser() {
+    private fun addFavUser(user: User) {
+        Log.i("HAHAHUHU", user.toString())
         fabLoveInDetail.setOnClickListener {
             isLiked()
             if (!isFav) {
-                viewModel.addFavUser(
+                favUserViewModel.addFavUser(
                     name = user.name,
                     username = user.username,
                     company = user.company,
@@ -126,7 +122,7 @@ class DetailActivity : AppCompatActivity() {
                     photoUrl = user.photoUrl)
                 Toast.makeText(this@DetailActivity, "Added to Favourite", Toast.LENGTH_SHORT).show()
             } else {
-                viewModel.delete(
+                favUserViewModel.delete(
                     name = user.name,
                     username = user.username,
                     company = user.company,

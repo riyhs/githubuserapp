@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.riyaldi.githubuserapp.R
 import com.riyaldi.githubuserapp.adapter.UserRecyclerViewAdapter
 import com.riyaldi.githubuserapp.data.User
-import com.riyaldi.githubuserapp.model.DetailViewModel
+import com.riyaldi.githubuserapp.model.InfoViewModel
 import kotlinx.android.synthetic.main.fragment_followers.*
 import kotlinx.coroutines.InternalCoroutinesApi
 
@@ -20,7 +20,7 @@ class FollowersFragment : Fragment() {
 
     private var listFollowers = arrayListOf<User>()
 
-    private lateinit var viewModel: DetailViewModel
+    private lateinit var viewModel: InfoViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_followers, container, false)
@@ -32,11 +32,11 @@ class FollowersFragment : Fragment() {
         showLoading(true)
 
         val activity: DetailActivity = activity as DetailActivity
-        val user: User = activity.getMyData()
+        val username: String = activity.getMyData()
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(InfoViewModel::class.java)
 
-        showData(user.username)
+        showData(username)
         showRecyclerView()
     }
 

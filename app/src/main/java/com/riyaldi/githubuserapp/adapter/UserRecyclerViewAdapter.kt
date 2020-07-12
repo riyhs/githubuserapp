@@ -48,22 +48,10 @@ class UserRecyclerViewAdapter(private val listUser: ArrayList<User>) : RecyclerV
                     .into(imgProfilePhoto)
 
                 itemView.setOnClickListener {
-                    val userDetail = User(
-                        name = user.name,
-                        username = user.username,
-                        company = user.company,
-                        location = user.location,
-                        bio = user.bio,
-                        repositories = user.repositories,
-                        followers = user.followers,
-                        following = user.following,
-                        photoUrl = user.photoUrl,
-                        followersUrl = user.followersUrl,
-                        followingUrl = user.followingUrl
-                    )
+                    val username = user.username
 
                     val moveWithObjectIntent = Intent(it.context, DetailActivity::class.java)
-                    moveWithObjectIntent.putExtra(DetailActivity.EXTRA_USER, userDetail)
+                    moveWithObjectIntent.putExtra(DetailActivity.EXTRA_USER, username)
                     it.context.startActivity(moveWithObjectIntent)
                 }
             }
