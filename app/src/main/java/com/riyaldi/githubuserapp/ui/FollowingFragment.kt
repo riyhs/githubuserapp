@@ -1,7 +1,6 @@
 package com.riyaldi.githubuserapp.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,7 +48,6 @@ class FollowingFragment : Fragment() {
         listFollowing.clear()
         viewModel.setUserData(username, requireContext(), "following")
         setViewModel()
-        showLoading(false)
     }
 
     private fun setViewModel() {
@@ -58,12 +56,13 @@ class FollowingFragment : Fragment() {
                 listFollowing = liveUserData
             } else listFollowing
             rvFragmentFollowing.adapter = UserRecyclerViewAdapter(listFollowing)
+            showLoading(false)
         })
     }
 
     private fun showRecyclerView() {
+        showLoading(true)
         rvFragmentFollowing.apply {
-            Log.i("Following", "recyclerView inner start")
             layoutManager = LinearLayoutManager(activity)
             adapter = UserRecyclerViewAdapter(listFollowing)
         }

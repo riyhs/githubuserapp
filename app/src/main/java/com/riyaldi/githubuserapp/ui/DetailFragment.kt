@@ -14,7 +14,6 @@ import com.riyaldi.githubuserapp.R
 import com.riyaldi.githubuserapp.data.User
 import com.riyaldi.githubuserapp.model.DetailViewModel
 import kotlinx.android.synthetic.main.fragment_detail.*
-import kotlinx.android.synthetic.main.fragment_followers.*
 import kotlinx.coroutines.InternalCoroutinesApi
 
 class DetailFragment : Fragment() {
@@ -40,10 +39,10 @@ class DetailFragment : Fragment() {
     }
 
     private fun setViewModel(username: String) {
+        showLoading(true)
         context?.let { detailViewModel.getDetailUserData(username, it) }
         detailViewModel.getUserData().observe(viewLifecycleOwner, Observer {
             showDetail(it)
-            showLoading(false)
         })
     }
 
@@ -54,6 +53,7 @@ class DetailFragment : Fragment() {
         tvDetailCompany.text = user.company
         tvDetailLocation.text = user.location
         tvDetailRepo.text = "${user.repositories} Repositories"
+        showLoading(false)
     }
 
     private fun showLoading(state: Boolean) {

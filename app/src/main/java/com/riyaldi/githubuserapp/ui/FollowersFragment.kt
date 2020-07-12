@@ -44,10 +44,10 @@ class FollowersFragment : Fragment() {
     }
 
     private fun showData(username: String) {
+        showLoading(true)
         listFollowers.clear()
         viewModel.setUserData(username, requireContext(), "followers")
         setViewModel()
-        showLoading(false)
     }
 
     private fun setViewModel() {
@@ -56,10 +56,12 @@ class FollowersFragment : Fragment() {
                 listFollowers = liveUserData
             }
             rvFragmentFollowers.adapter = UserRecyclerViewAdapter(listFollowers)
+            showLoading(false)
         })
     }
 
     private fun showRecyclerView() {
+        showLoading(true)
         rvFragmentFollowers.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = UserRecyclerViewAdapter(listFollowers)

@@ -13,6 +13,7 @@
         android:layout_height="match_parent">
 
         <!--    name   -->
+
         <TextView
             android:id="@+id/tvDetailNameText"
             style="@style/TextInfoTitle"
