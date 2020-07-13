@@ -11,21 +11,11 @@
     <string name="hint">Search Username</string>
     <string name="settings">Settings</string>
     <string name="favourite_user">Favourite User</string>
-    <string name="title_activity_settings">SettingsActivity</string>
-
-    <!-- Preference Titles -->
-    <string name="messages_header">Messages</string>
-    <string name="sync_header">Sync</string>
-
-    <!-- Messages Preferences -->
-    <string name="signature_title">Your signature</string>
-    <string name="reply_title">Default reply action</string>
-
-    <!-- Sync Preferences -->
-    <string name="sync_title">Sync email periodically</string>
-    <string name="attachment_title">Download incoming attachments</string>
-    <string name="attachment_summary_on">Automatically download attachments for incoming emails
-    </string>
-    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="title_activity_settings">Settings</string>
     <string name="fab_like_button">Fab Like button</string>
+
+    <!--reminder-->
+    <string name="reminder_header">Reminder</string>
+    <string name="reminder_title">Reminder at 9.00 AM</string>
+    <string name="reminder_key">Reminder</string>
 </resources>

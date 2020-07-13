@@ -40,15 +40,24 @@ class DetailActivity : AppCompatActivity() {
 
         setViewPager()
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         username = intent.getStringExtra(EXTRA_USER) as String
 
         favUserViewModel = ViewModelProvider(this).get(FavUserViewModel::class.java)
         detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
 
+        setActionBar(username)
         isLiked()
         setDetail()
+    }
+
+    private fun setActionBar(username: String){
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "$username's Profile"
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
     private fun setDetail() {
