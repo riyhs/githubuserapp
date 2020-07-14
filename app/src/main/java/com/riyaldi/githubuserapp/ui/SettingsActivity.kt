@@ -1,23 +1,10 @@
 package com.riyaldi.githubuserapp.ui
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.app.TaskStackBuilder
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.media.RingtoneManager
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
-import androidx.preference.SwitchPreferenceCompat
 import com.riyaldi.githubuserapp.R
 import kotlinx.coroutines.InternalCoroutinesApi
 

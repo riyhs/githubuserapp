@@ -18,4 +18,5 @@
     <string name="reminder_header">Reminder</string>
     <string name="reminder_title">Reminder at 9.00 AM</string>
     <string name="reminder_key">Reminder</string>
+    <string name="reminder_state">State</string>
 </resources>
