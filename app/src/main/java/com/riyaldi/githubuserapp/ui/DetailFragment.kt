@@ -5,13 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.riyaldi.githubuserapp.R
 import com.riyaldi.githubuserapp.data.User
+import com.riyaldi.githubuserapp.model.DetailViewModel
 import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.coroutines.InternalCoroutinesApi
 
 class DetailFragment : Fragment() {
+
+    private lateinit var detailViewModel: DetailViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_detail, container, false)
@@ -21,10 +28,22 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val activity: DetailActivity = activity as DetailActivity
-        val user: User = activity.getMyData()
+        showLoading(true)
 
-        showDetail(user)
+        val activity: DetailActivity = activity as DetailActivity
+        val username: String = activity.getMyData()
+
+        detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
+
+        setViewModel(username)
+    }
+
+    private fun setViewModel(username: String) {
+        showLoading(true)
+        context?.let { detailViewModel.getDetailUserData(username, it) }
+        detailViewModel.getUserData().observe(viewLifecycleOwner, Observer {
+            showDetail(it)
+        })
     }
 
     @SuppressLint("SetTextI18n")
@@ -34,5 +53,14 @@ class DetailFragment : Fragment() {
         tvDetailCompany.text = user.company
         tvDetailLocation.text = user.location
         tvDetailRepo.text = "${user.repositories} Repositories"
+        showLoading(false)
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            pbDetail.isVisible = true
+        } else {
+            pbDetail.isGone = true
+        }
     }
 }

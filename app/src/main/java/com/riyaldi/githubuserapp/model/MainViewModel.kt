@@ -97,7 +97,7 @@ class MainViewModel : ViewModel() {
                 }
                 Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
             }
-
         })
     }
+
 }

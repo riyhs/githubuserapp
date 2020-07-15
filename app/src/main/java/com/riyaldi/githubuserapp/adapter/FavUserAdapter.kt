@@ -4,6 +4,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -45,22 +46,9 @@ class FavUserAdapter(private val favUser: List<FavUser>) : RecyclerView.Adapter<
                     .into(imgProfilePhoto)
 
                 itemView.setOnClickListener {
-                    val userDetail = FavUser(
-                        name = favUser.name,
-                        username = favUser.username,
-                        company = favUser.company,
-                        location = favUser.location,
-                        bio = favUser.bio,
-                        repositories = favUser.repositories,
-                        followers = favUser.followers,
-                        following = favUser.following,
-                        photoUrl = favUser.photoUrl,
-                        followersUrl = favUser.followersUrl,
-                        followingUrl = favUser.followingUrl
-                    )
-
+                    val favUserUsername = favUser.username
                     val moveWithObjectIntent = Intent(it.context, DetailActivity::class.java)
-                    moveWithObjectIntent.putExtra(DetailActivity.EXTRA_FAV_USER, userDetail)
+                    moveWithObjectIntent.putExtra(DetailActivity.EXTRA_USER, favUserUsername)
                     it.context.startActivity(moveWithObjectIntent)
                 }
             }

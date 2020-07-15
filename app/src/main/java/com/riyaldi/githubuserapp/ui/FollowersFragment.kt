@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.riyaldi.githubuserapp.R
 import com.riyaldi.githubuserapp.adapter.UserRecyclerViewAdapter
 import com.riyaldi.githubuserapp.data.User
-import com.riyaldi.githubuserapp.model.DetailViewModel
+import com.riyaldi.githubuserapp.model.InfoViewModel
 import kotlinx.android.synthetic.main.fragment_followers.*
 import kotlinx.coroutines.InternalCoroutinesApi
 
@@ -20,7 +22,7 @@ class FollowersFragment : Fragment() {
 
     private var listFollowers = arrayListOf<User>()
 
-    private lateinit var viewModel: DetailViewModel
+    private lateinit var viewModel: InfoViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_followers, container, false)
@@ -29,14 +31,15 @@ class FollowersFragment : Fragment() {
     @InternalCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         showLoading(true)
 
         val activity: DetailActivity = activity as DetailActivity
-        val user: User = activity.getMyData()
+        val username: String = activity.getMyData()
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(InfoViewModel::class.java)
 
-        showData(user.username)
+        showData(username)
         showRecyclerView()
     }
 
@@ -58,6 +61,7 @@ class FollowersFragment : Fragment() {
     }
 
     private fun showRecyclerView() {
+        showLoading(true)
         rvFragmentFollowers.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = UserRecyclerViewAdapter(listFollowers)
@@ -66,9 +70,9 @@ class FollowersFragment : Fragment() {
 
     private fun showLoading(state: Boolean) {
         if (state) {
-            pbFollowers.visibility = View.VISIBLE
+            pbFollowers.isVisible = true
         } else {
-            pbFollowers.visibility = View.GONE
+            pbFollowers.isGone = true
         }
     }
 }

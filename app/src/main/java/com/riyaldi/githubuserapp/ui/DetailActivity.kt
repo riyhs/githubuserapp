@@ -3,6 +3,7 @@ package com.riyaldi.githubuserapp.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -14,8 +15,8 @@ import com.bumptech.glide.Glide
 import com.riyaldi.githubuserapp.R
 import com.riyaldi.githubuserapp.adapter.SectionsPagerAdapter
 import com.riyaldi.githubuserapp.data.User
-import com.riyaldi.githubuserapp.db.FavUser
 import com.riyaldi.githubuserapp.db.FavUserDatabase
+import com.riyaldi.githubuserapp.model.DetailViewModel
 import com.riyaldi.githubuserapp.model.FavUserViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -26,75 +27,53 @@ class DetailActivity : AppCompatActivity() {
 
     companion object {
         val EXTRA_USER = "extra_user"
-        val EXTRA_FAV_USER = "extra_fav_user"
     }
 
-    private lateinit var favUser : FavUser
-    private lateinit var user : User
-    private lateinit var viewModel: FavUserViewModel
+    private lateinit var username : String
+    private lateinit var favUserViewModel: FavUserViewModel
+    private lateinit var detailViewModel: DetailViewModel
     private var isFav: Boolean = false
-
-    private val userDetail by lazy {
-        User(
-            name = user.name,
-            username = user.username,
-            company = user.company,
-            location = user.location,
-            bio = user.bio,
-            repositories = user.repositories,
-            followers = user.followers,
-            following = user.following,
-            photoUrl = user.photoUrl,
-            followingUrl = user.followingUrl,
-            followersUrl = user.followersUrl
-        )
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+
         setViewPager()
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        username = intent.getStringExtra(EXTRA_USER) as String
 
-        favUser = intent.getParcelableExtra(EXTRA_FAV_USER) as FavUser
-        user = intent.getParcelableExtra(EXTRA_USER) as User
+        favUserViewModel = ViewModelProvider(this).get(FavUserViewModel::class.java)
+        detailViewModel = ViewModelProvider(this).get(DetailViewModel::class.java)
 
-        viewModel = ViewModelProvider(this).get(FavUserViewModel::class.java)
-
+        setActionBar(username)
         isLiked()
-        setDetailInfo()
-        addFavUser()
+        setDetail()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu, menu)
+    private fun setActionBar(username: String){
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "$username's Profile"
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.favMenu -> {
-                val intent = Intent(this@DetailActivity, FavouriteUserActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-            R.id.setting_menu -> {
-                val intent = Intent(this@DetailActivity, SettingsActivity::class.java)
-                startActivity(intent)
-                return true
-            }
-            else -> return true
-        }
+    private fun setDetail() {
+        detailViewModel.getDetailUserData(username, applicationContext)
+        detailViewModel.getUserData().observe(this, Observer { it ->
+            addFavUser(it)
+            setDetailInfo(it)
+        })
     }
 
-    fun getMyData(): User {
-        return userDetail
+    fun getMyData(): String {
+        return username
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setDetailInfo() {
+    private fun setDetailInfo(user: User) {
         tvProfileName.text = user.name
         tvProfileBio.text = "\"${user.bio}\""
 
@@ -121,8 +100,7 @@ class DetailActivity : AppCompatActivity() {
     private fun isLiked(){
         val db = FavUserDatabase.getInstance(applicationContext)
         val dao = db.favUserDAO()
-
-        dao.getByUserName(user.username).observe(this, Observer { liveUserData ->
+        dao.getByUserName(username).observe(this, Observer { liveUserData ->
             if (liveUserData.isNotEmpty() && liveUserData[0].username.isNotEmpty()) {
                 isFav = true
                 changeFabIcon(isFav)
@@ -133,11 +111,12 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun addFavUser() {
+    private fun addFavUser(user: User) {
+        Log.i("HAHAHUHU", user.toString())
         fabLoveInDetail.setOnClickListener {
             isLiked()
             if (!isFav) {
-                viewModel.addFavUser(
+                favUserViewModel.addFavUser(
                     name = user.name,
                     username = user.username,
                     company = user.company,
@@ -151,7 +130,7 @@ class DetailActivity : AppCompatActivity() {
                     photoUrl = user.photoUrl)
                 Toast.makeText(this@DetailActivity, "Added to Favourite", Toast.LENGTH_SHORT).show()
             } else {
-                viewModel.delete(
+                favUserViewModel.delete(
                     name = user.name,
                     username = user.username,
                     company = user.company,
@@ -165,6 +144,28 @@ class DetailActivity : AppCompatActivity() {
                     photoUrl = user.photoUrl)
                 Toast.makeText(this@DetailActivity, "Removed from Favourite", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            R.id.favMenu -> {
+                val intent = Intent(this@DetailActivity, FavouriteUserActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            R.id.setting_menu -> {
+                val intent = Intent(this@DetailActivity, SettingsActivity::class.java)
+                startActivity(intent)
+                return true
+            }
+            else -> return true
         }
     }
 }
