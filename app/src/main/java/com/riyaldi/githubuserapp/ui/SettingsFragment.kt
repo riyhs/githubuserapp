@@ -1,9 +1,7 @@
 package com.riyaldi.githubuserapp.ui
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.widget.Toast
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreferenceCompat
@@ -41,11 +39,11 @@ class SettingsFragment : PreferenceFragmentCompat(),
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         if (key == REMINDER) {
             reminderPreference.isChecked = sharedPreferences.getBoolean(REMINDER, false)
-
-            val state : Boolean = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(REMINDER, false)
-
-            setReminder(state)
         }
+
+        val state : Boolean = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(REMINDER, false)
+
+        setReminder(state)
     }
 
     private fun init() {
@@ -56,10 +54,8 @@ class SettingsFragment : PreferenceFragmentCompat(),
     private fun setReminder(state: Boolean) {
         if (state) {
             context?.let { alarmReceiver.setRepeatingAlarm(it) }
-            Toast.makeText(context, state.toString(), Toast.LENGTH_SHORT).show()
         } else {
             context?.let { alarmReceiver.cancelAlarm(it) }
-            Toast.makeText(context, state.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
