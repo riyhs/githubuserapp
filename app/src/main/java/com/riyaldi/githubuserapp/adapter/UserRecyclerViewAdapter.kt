@@ -15,6 +15,8 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 class UserRecyclerViewAdapter(private val listUser: ArrayList<User>) : RecyclerView.Adapter<UserRecyclerViewAdapter.ListViewHolder>() {
 
+    private val size = 130
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
         return ListViewHolder(view)
@@ -41,7 +43,7 @@ class UserRecyclerViewAdapter(private val listUser: ArrayList<User>) : RecyclerV
                 tvRepo.text = user.repositories
                 Glide.with(itemView.context)
                     .load(user.photoUrl)
-                    .apply(RequestOptions().override(130, 130))
+                    .apply(RequestOptions().override(size, size))
                     .into(imgProfilePhoto)
 
                 itemView.setOnClickListener {

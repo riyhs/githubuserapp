@@ -14,6 +14,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 class FavUserAdapter : RecyclerView.Adapter<FavUserAdapter.ListViewHolder>() {
 
     private var cursor: Cursor? = null
+    private val size = 130
 
     private val name = "name"
     private val username = "username"
@@ -54,7 +55,7 @@ class FavUserAdapter : RecyclerView.Adapter<FavUserAdapter.ListViewHolder>() {
                     tvRepo.text = cursor?.getString(cursor?.getColumnIndexOrThrow(repositories) ?: 0)
                     Glide.with(itemView.context)
                         .load(cursor?.getString(cursor?.getColumnIndexOrThrow(url) ?: 0))
-                        .apply(RequestOptions().override(130, 130))
+                        .apply(RequestOptions().override(size,size))
                         .into(imgProfilePhoto)
                 }
         }
