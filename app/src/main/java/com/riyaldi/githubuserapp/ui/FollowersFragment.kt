@@ -50,11 +50,22 @@ class FollowersFragment : Fragment() {
         setViewModel()
     }
 
+    private fun setIllustration(state: Boolean){
+        ivEmpty.isVisible = state
+        tvNoData.isVisible = state
+        tvNoDataDescription.isVisible = state
+    }
+
     private fun setViewModel() {
         viewModel.getUserData().observe(viewLifecycleOwner, Observer { liveUserData ->
-            if (liveUserData != null) {
+            if (liveUserData != null && liveUserData.isNotEmpty()) {
+                showLoading(true)
                 listFollowers = liveUserData
+                setIllustration(false)
+            } else {
+                setIllustration(true)
             }
+
             rvFragmentFollowers.adapter = UserRecyclerViewAdapter(listFollowers)
             showLoading(false)
         })

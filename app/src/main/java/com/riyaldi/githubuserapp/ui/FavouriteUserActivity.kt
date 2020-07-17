@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.riyaldi.githubuserapp.R
 import com.riyaldi.githubuserapp.adapter.FavUserAdapter
+import com.riyaldi.githubuserapp.db.FavUser
 import com.riyaldi.githubuserapp.db.FavUserDatabase
 import kotlinx.android.synthetic.main.activity_favourite_user.*
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -19,8 +21,10 @@ class FavouriteUserActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favourite_user)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+
+
+        setIllustration(false)
         getFavUserData()
     }
 
@@ -46,14 +50,35 @@ class FavouriteUserActivity : AppCompatActivity() {
         }
     }
 
+    private fun setActionBar() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Favourite Users"
+    }
+
+    private fun setIllustration(state: Boolean){
+        ivEmpty.isVisible = state
+        tvNoData.isVisible = state
+        tvNoDataDescription.isVisible = state
+    }
+
+    private fun setAdapter(liveUserData: List<FavUser>) {
+        rvFavUser.apply {
+            layoutManager = LinearLayoutManager(this@FavouriteUserActivity)
+            adapter = FavUserAdapter(liveUserData)
+        }
+    }
+
     private fun getFavUserData() {
         val db = FavUserDatabase.getInstance(applicationContext)
         val dao = db.favUserDAO()
 
         dao.getAll().observe(this, Observer { liveUserData ->
-            rvFavUser.apply {
-                layoutManager = LinearLayoutManager(this@FavouriteUserActivity)
-                adapter = FavUserAdapter(liveUserData)
+            if (liveUserData.isNotEmpty()){
+                setIllustration(false)
+                setAdapter(liveUserData)
+            } else {
+                setIllustration(true)
+                setAdapter(liveUserData)
             }
         })
     }

@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,20 +24,17 @@ class MainActivity : AppCompatActivity() {
 
     private var list = ArrayList<User>()
     private lateinit var mainViewModel : MainViewModel
-    private lateinit var adapter: UserRecyclerViewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        pbMain.visibility = View.GONE
 
-        adapter = UserRecyclerViewAdapter(list)
-        adapter.notifyDataSetChanged()
+        showLoading(false)
         mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
 
         searchUser()
         setViewModel()
-        showRecyclerList()
+
     }
 
     private fun searchUser(){
@@ -48,6 +46,7 @@ class MainActivity : AppCompatActivity() {
                         list.clear()
                         mainViewModel.setUserData(query, applicationContext)
                         setViewModel()
+                        setIllustration(false)
                     }
                 }
                 showLoading(true)
@@ -63,15 +62,30 @@ class MainActivity : AppCompatActivity() {
             showLoading(true)
             if (liveUserData != null) {
                 list = liveUserData
-                rvMain.adapter = UserRecyclerViewAdapter(list)
+
+                setIllustration(false)
+                setAdapter(list)
                 showLoading(false)
+            } else {
+                list = liveUserData
+
+                setIllustration(true)
+                setAdapter(list)
             }
         })
     }
 
-    private fun showRecyclerList() {
-        rvMain.layoutManager = LinearLayoutManager(this)
-        rvMain.adapter = UserRecyclerViewAdapter(list)
+    private fun setIllustration(state: Boolean){
+        ivEmpty.isVisible = state
+        tvNoData.isVisible = state
+        tvNoDataDescription.isVisible = state
+    }
+
+    private fun setAdapter(liveUserData: ArrayList<User>) {
+        rvMain.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = UserRecyclerViewAdapter(liveUserData)
+        }
     }
 
     private fun showLoading(state: Boolean) {

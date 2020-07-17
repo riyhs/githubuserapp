@@ -13,9 +13,18 @@
     <string name="favourite_user">Favourite User</string>
     <string name="title_activity_settings">Settings</string>
     <string name="fab_like_button">Fab Like button</string>
+    <string name="searching">Searching Image Illustration</string>
+    <string name="empty">Empty Image Illustration</string>
+    <string name="fav_user">Favourite User</string>
+    <string name="searching_title">Search some user.</string>
+    <string name="searching_no_data">Find some user and add them to favourite.</string>
+    <string name="no_data">Hi, You have no favourite user selected.</string>
 
+    <string name="followings_desc">This user don\'t follows anyone.</string>
+    <string name="followers_desc">This user have no any followers.</string>
     <!--reminder-->
     <string name="reminder_header">Reminder</string>
     <string name="reminder_title">Reminder at 9.00 AM</string>
     <string name="reminder_key">Reminder</string>
+    <string name="empty_image">Empty Image Illustration</string>
 </resources>

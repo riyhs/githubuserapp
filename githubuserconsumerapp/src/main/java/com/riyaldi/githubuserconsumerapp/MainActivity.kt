@@ -10,24 +10,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var adapter: FavUserAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         getFavUserData()
-        showRecyclerList()
-    }
-
-    private fun showRecyclerList() {
-        rvFavUser.adapter = adapter
-        rvFavUser.layoutManager = LinearLayoutManager(this)
     }
 
     private fun setAdapter(cursor: Cursor?) {
-        adapter = FavUserAdapter(convertCursor(cursor))
-        adapter.notifyDataSetChanged()
+        rvFavUser.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = FavUserAdapter(convertCursor(cursor))
+        }
     }
 
     private fun setIllustration(state: Boolean){
