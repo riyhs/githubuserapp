@@ -27,8 +27,8 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private fun setNotification(context: Context) {
-        val CHANNEL_ID = "channel_1"
-        val CHANNEL_NAME = "reminder channel"
+        val channelId = "channel_1"
+        val channelName = "reminder channel"
         val title = "Github User App Reminder"
         val message = "Hi..., We miss You, We would feel glad if You come back :)"
 
@@ -40,7 +40,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val notificationManagerCompat = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+        val builder = NotificationCompat.Builder(context, channelId)
             .setContentIntent(pendingIntent)
             .setContentTitle(title)
             .setSmallIcon(R.drawable.ic_notifications)
@@ -50,12 +50,12 @@ class AlarmReceiver : BroadcastReceiver() {
             .setAutoCancel(true)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+            val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
 
             channel.enableVibration(true)
             channel.vibrationPattern = longArrayOf(1000, 1000, 1000, 1000, 1000)
 
-            builder.setChannelId(CHANNEL_ID)
+            builder.setChannelId(channelId)
             notificationManagerCompat.createNotificationChannel(channel)
         }
 

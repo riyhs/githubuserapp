@@ -3,7 +3,6 @@ package com.riyaldi.githubuserapp.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -62,7 +61,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setDetail() {
         detailViewModel.getDetailUserData(username, applicationContext)
-        detailViewModel.getUserData().observe(this, Observer { it ->
+        detailViewModel.getUserData().observe(this, Observer {
             addFavUser(it)
             setDetailInfo(it)
         })
@@ -112,7 +111,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun addFavUser(user: User) {
-        Log.i("HAHAHUHU", user.toString())
         fabLoveInDetail.setOnClickListener {
             isLiked()
             if (!isFav) {
@@ -154,18 +152,18 @@ class DetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        return when(item.itemId) {
             R.id.favMenu -> {
                 val intent = Intent(this@DetailActivity, FavouriteUserActivity::class.java)
                 startActivity(intent)
-                return true
+                true
             }
             R.id.setting_menu -> {
                 val intent = Intent(this@DetailActivity, SettingsActivity::class.java)
                 startActivity(intent)
-                return true
+                true
             }
-            else -> return true
+            else -> true
         }
     }
 }
