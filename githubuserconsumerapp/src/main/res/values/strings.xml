@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Github User Consumer App</string>
+    <string name="followers">Followers</string>
+    <string name="repositories">Repositories</string>
+    <string name="followings">Followings</string>
+
+    <!--reminder-->
+</resources>

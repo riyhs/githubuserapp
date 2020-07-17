@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/github_card"
+    android:padding="8dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgProfilePhoto"
+        style="@style/BorderImage"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="8dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvFollowers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/tvFollowersText"
+        app:layout_constraintStart_toStartOf="@id/tvFollowersText"
+        app:layout_constraintTop_toTopOf="@id/tvFollowing"
+        tools:text="544039" />
+
+    <TextView
+        android:id="@+id/tvRepo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/tvRepoText"
+        app:layout_constraintStart_toStartOf="@id/tvRepoText"
+        app:layout_constraintTop_toTopOf="@+id/tvFollowing"
+        tools:text="277" />
+
+    <TextView
+        android:id="@+id/tvFollowersText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/followers"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/tvFollowingText"
+        app:layout_constraintEnd_toStartOf="@id/tvFollowingText"
+        app:layout_constraintStart_toEndOf="@id/imgProfilePhoto"
+        app:layout_constraintTop_toTopOf="@id/tvFollowingText" />
+
+    <TextView
+        android:id="@+id/tvRepoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/repositories"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/tvFollowingText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/tvFollowingText"
+        app:layout_constraintTop_toTopOf="@id/tvFollowingText" />
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgProfilePhoto"
+        app:layout_constraintTop_toTopOf="@+id/imgProfilePhoto"
+        tools:text="Nama User" />
+
+    <TextView
+        android:id="@+id/tvFollowing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@id/tvFollowingText"
+        app:layout_constraintStart_toStartOf="@id/tvFollowingText"
+        app:layout_constraintTop_toBottomOf="@+id/tvUsername"
+        tools:text="53" />
+
+    <TextView
+        android:id="@+id/tvFollowingText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/followings"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@id/tvRepoText"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@id/tvFollowersText"
+        app:layout_constraintTop_toBottomOf="@id/tvFollowing" />
+
+    <TextView
+        android:id="@+id/tvUsername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="@+id/tvName"
+        app:layout_constraintStart_toStartOf="@+id/tvName"
+        app:layout_constraintTop_toBottomOf="@+id/tvName"
+        tools:text="Username" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

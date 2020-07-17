@@ -1,0 +1,66 @@
+package com.riyaldi.githubuserconsumerapp.adapter
+
+import android.database.Cursor
+import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.riyaldi.githubuserconsumerapp.R
+import kotlinx.android.synthetic.main.user_item.view.*
+import kotlinx.coroutines.InternalCoroutinesApi
+
+class FavUserAdapter : RecyclerView.Adapter<FavUserAdapter.ListViewHolder>() {
+
+    private var cursor: Cursor? = null
+
+    private val NAME = "name"
+    private val USERNAME = "username"
+    private val FOLLOWERS = "followers"
+    private val FOLLOWING = "following"
+    private val REPOSITORIES = "repositories"
+    private val URL = "photoUrl"
+
+    //[username, name, company, location, bio, repositories, followers, following, followersUrl, followingUrl, photoUrl]
+
+    fun setFromCursor(cursor: Cursor) {
+        this.cursor = cursor
+        notifyDataSetChanged()
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavUserAdapter.ListViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
+        return ListViewHolder(view)
+    }
+
+    override fun getItemCount(): Int {
+        return cursor?.count ?: 0
+    }
+
+    @InternalCoroutinesApi
+    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
+        cursor?.moveToPosition(position)?.let { holder.bind(it) }
+    }
+
+    @Suppress("DEPRECATION")
+    inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        @InternalCoroutinesApi
+        fun bind(moveToPosition: Boolean) {
+            if (moveToPosition)
+                with(itemView){
+                    tvName.text = cursor?.getString(cursor?.getColumnIndexOrThrow(NAME) ?: 0)
+                    tvUsername.text = cursor?.getString(cursor?.getColumnIndexOrThrow(USERNAME) ?: 0)
+                    tvFollowers.text = cursor?.getString(cursor?.getColumnIndexOrThrow(FOLLOWERS) ?: 0)
+                    tvFollowing.text = cursor?.getString(cursor?.getColumnIndexOrThrow(FOLLOWING) ?: 0)
+                    tvRepo.text = cursor?.getString(cursor?.getColumnIndexOrThrow(REPOSITORIES) ?: 0)
+                    Glide.with(itemView.context)
+                        .load(cursor?.getString(cursor?.getColumnIndexOrThrow(URL) ?: 0))
+                        .apply(RequestOptions().override(130, 130))
+                        .into(imgProfilePhoto)
+                }
+        }
+    }
+}
