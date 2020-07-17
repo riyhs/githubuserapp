@@ -3,6 +3,9 @@
     <string name="followers">Followers</string>
     <string name="repositories">Repositories</string>
     <string name="followings">Followings</string>
+    <string name="searching">Searching Image Illustration</string>
+    <string name="fav_user">Favourite User</string>
+    <string name="no_data_description">Hi, You have no favourite user selected.</string>
 
     <!--reminder-->
 </resources>

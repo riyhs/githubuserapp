@@ -5,6 +5,7 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,6 +23,17 @@ class MainActivity : AppCompatActivity() {
     private fun showRecyclerList() {
         rvFavUser.adapter = adapter
         rvFavUser.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun setAdapter(cursor: Cursor?) {
+        adapter = FavUserAdapter(convertCursor(cursor))
+        adapter.notifyDataSetChanged()
+    }
+
+    private fun setIllustration(state: Boolean){
+        ivSearching.isVisible = state
+        tvNoData.isVisible = state
+        tvNoDataDescription.isVisible = state
     }
 
     @SuppressLint("Recycle")
@@ -47,8 +59,11 @@ class MainActivity : AppCompatActivity() {
 
 
         if (cursor != null && cursor.count > 0) {
-            adapter = FavUserAdapter(convertCursor(cursor))
-            adapter.notifyDataSetChanged()
+            setIllustration(false)
+            setAdapter(cursor)
+        } else {
+            setIllustration(true)
+            setAdapter(cursor)
         }
 
     }
