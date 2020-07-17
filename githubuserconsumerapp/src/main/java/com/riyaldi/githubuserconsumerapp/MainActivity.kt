@@ -53,8 +53,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    @Suppress("NAME_SHADOWING")
-    fun convertCursor(cursor: Cursor?): ArrayList<FavUser> {
+    private fun convertCursor(cursor: Cursor?): ArrayList<FavUser> {
         val favUsers = ArrayList<FavUser>()
 
         cursor?.apply {
