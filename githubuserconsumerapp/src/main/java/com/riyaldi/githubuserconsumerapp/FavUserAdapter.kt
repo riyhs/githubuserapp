@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.user_item.view.*
 class FavUserAdapter(private val favUser: List<FavUser>) : RecyclerView.Adapter<FavUserAdapter.ListViewHolder>() {
 
     private val size = 130
+    private val message = "Sorry, You can only open Detail Page from Github User App"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavUserAdapter.ListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
@@ -40,7 +41,7 @@ class FavUserAdapter(private val favUser: List<FavUser>) : RecyclerView.Adapter<
                     .into(imgProfilePhoto)
 
                 itemView.setOnClickListener {
-                    Toast.makeText(context, "Sorry, You can only open Detail Page from Github User App", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
                 }
             }
         }
