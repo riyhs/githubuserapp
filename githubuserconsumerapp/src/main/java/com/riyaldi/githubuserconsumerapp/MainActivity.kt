@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.riyaldi.githubuserconsumerapp.adapter.FavUserAdapter
@@ -33,18 +32,18 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("Recycle")
     private fun getFavUserData() {
 
-        val TABLE = "fav_user_table"
-        val AUTHORITY = "com.riyaldi.githubuserapp.provider"
+        val table = "fav_user_table"
+        val authority = "com.riyaldi.githubuserapp.provider"
 
-        val URI: Uri = Uri.Builder()
+        val uri: Uri = Uri.Builder()
             .scheme("content")
-            .authority(AUTHORITY)
-            .appendPath(TABLE)
+            .authority(authority)
+            .appendPath(table)
             .build()
 
         val contentResolver = this.contentResolver
         val cursor = contentResolver.query(
-            URI,
+            uri,
             null,
             null,
             null,
