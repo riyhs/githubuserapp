@@ -10,5 +10,5 @@ data class FavUser (
     val followers: String,
     val following: String,
     val repositories: String,
-    val url: String
+    val photoUrl: String
 ) : Parcelable

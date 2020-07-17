@@ -4,11 +4,8 @@ import android.annotation.SuppressLint
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
-import android.provider.ContactsContract
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.riyaldi.githubuserconsumerapp.adapter.FavUserAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.InternalCoroutinesApi
 
@@ -20,13 +17,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        showRecyclerList()
         getFavUserData()
+        showRecyclerList()
     }
 
     private fun showRecyclerList() {
-        adapter = FavUserAdapter()
-        adapter.notifyDataSetChanged()
         rvFavUser.adapter = adapter
         rvFavUser.layoutManager = LinearLayoutManager(this)
     }
@@ -54,7 +49,8 @@ class MainActivity : AppCompatActivity() {
 
 
         if (cursor != null && cursor.count > 0) {
-            adapter.setFromCursor(cursor)
+            adapter = FavUserAdapter(convertCursor(cursor))
+            adapter.notifyDataSetChanged()
         }
 
     }
