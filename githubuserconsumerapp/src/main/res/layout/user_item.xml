@@ -73,7 +73,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgProfilePhoto"
         app:layout_constraintTop_toTopOf="@+id/imgProfilePhoto"
-        tools:text="Nama User" />
+        tools:text="Name user" />
 
     <TextView
         android:id="@+id/tvFollowing"
