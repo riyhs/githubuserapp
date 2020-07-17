@@ -7,9 +7,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.InternalCoroutinesApi
 
-@InternalCoroutinesApi
 class MainActivity : AppCompatActivity() {
     private lateinit var adapter: FavUserAdapter
 

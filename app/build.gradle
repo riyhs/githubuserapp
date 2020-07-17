@@ -44,7 +44,6 @@ dependencies {
     implementation 'androidx.preference:preference:1.1.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-
     implementation "androidx.room:room-ktx:2.2.5"
     kapt "androidx.room:room-compiler:2.2.5" // For Kotlin use kapt instead of annotationProcessor
     testImplementation 'junit:junit:4.13'
