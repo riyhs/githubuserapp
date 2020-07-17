@@ -1,8 +1,10 @@
 package com.riyaldi.githubuserconsumerapp
 
 import android.annotation.SuppressLint
+import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,11 +52,28 @@ class MainActivity : AppCompatActivity() {
             null
         )
 
-        Log.d("@CURSOR", cursor?.count.toString())
 
         if (cursor != null && cursor.count > 0) {
             adapter.setFromCursor(cursor)
         }
 
+    }
+
+    @Suppress("NAME_SHADOWING")
+    fun convertCursor(cursor: Cursor?): ArrayList<FavUser> {
+        val favUsers = ArrayList<FavUser>()
+
+        cursor?.apply {
+            while (moveToNext()) {
+                val name = getString(getColumnIndexOrThrow("name"))
+                val username = getString(getColumnIndexOrThrow("username"))
+                val followers = getString(getColumnIndexOrThrow("followers"))
+                val following = getString(getColumnIndexOrThrow("following"))
+                val repositories = getString(getColumnIndexOrThrow("repositories"))
+                val url = getString(getColumnIndexOrThrow("photoUrl"))
+                favUsers.add(FavUser(name, username, followers, following, repositories, url))
+            }
+        }
+        return favUsers
     }
 }
