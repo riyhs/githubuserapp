@@ -50,13 +50,8 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setActionBar(username: String){
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "$username's Profile"
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setDetail() {
@@ -161,6 +156,10 @@ class DetailActivity : AppCompatActivity() {
             R.id.setting_menu -> {
                 val intent = Intent(this@DetailActivity, SettingsActivity::class.java)
                 startActivity(intent)
+                true
+            }
+            android.R.id.home -> {
+                finish()
                 true
             }
             else -> true

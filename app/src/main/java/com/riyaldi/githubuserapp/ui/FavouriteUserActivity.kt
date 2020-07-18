@@ -22,8 +22,7 @@ class FavouriteUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_favourite_user)
 
-
-
+        setActionBar()
         setIllustration(false)
         getFavUserData()
     }
@@ -46,13 +45,17 @@ class FavouriteUserActivity : AppCompatActivity() {
                 startActivity(intent)
                 true
             }
+            android.R.id.home -> {
+                finish()
+                true
+            }
             else -> true
         }
     }
 
     private fun setActionBar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Favourite Users"
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setIllustration(state: Boolean){
