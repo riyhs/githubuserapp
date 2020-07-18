@@ -14,7 +14,6 @@
     <string name="title_activity_settings">Settings</string>
     <string name="fab_like_button">Fab Like button</string>
     <string name="searching">Searching Image Illustration</string>
-    <string name="empty">Empty Image Illustration</string>
     <string name="fav_user">Favourite User</string>
     <string name="searching_title">Search some user.</string>
     <string name="searching_no_data">Find some user and add them to favourite.</string>
