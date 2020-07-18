@@ -7,27 +7,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="TextValue" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@android:color/background_light</item>
-        <item name="android:textColor">@color/colorTextDark</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textSize">24sp</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
-    <style name="TextValueDescription" parent="Theme.AppCompat.Light.DarkActionBar">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@android:color/background_light</item>
-        <item name="android:textColor">@color/colorTextDark</item>
-        <item name="android:paddingBottom">16dp</item>
-        <item name="android:textAlignment">center</item>
-        <item name="android:textSize">12sp</item>
-    </style>
-
     <style name="TextInfo" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>

@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <permission android:name="com.riyaldi.githubuserapp.provider.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.riyaldi.githubuserapp.provider.WRITE_DATABASE" android:protectionLevel="normal"/>
 
     <application
         android:allowBackup="true"
@@ -16,14 +18,24 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup">
 
-        <activity android:name=".ui.DetailActivity"
+        <provider
+            android:name=".provider.MyContentProvider"
+            android:authorities="com.riyaldi.githubuserapp.provider"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.riyaldi.githubuserapp.provider.READ_DATABASE"
+            android:writePermission="com.riyaldi.githubuserapp.provider.WRITE_DATABASE"/>
+
+        <activity
+            android:name=".ui.DetailActivity"
             android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.MainActivity" />
         </activity>
 
-        <activity android:name=".ui.FavouriteUserActivity"
+        <activity
+            android:name=".ui.FavouriteUserActivity"
             android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -39,9 +51,12 @@
                 android:value=".ui.MainActivity" />
         </activity>
 
-        <activity android:name=".ui.MainActivity">
+        <activity
+            android:name=".ui.MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -51,6 +66,6 @@
             android:enabled="true"
             android:exported="true"
             tools:ignore="ExportedReceiver" />
-
     </application>
+
 </manifest>

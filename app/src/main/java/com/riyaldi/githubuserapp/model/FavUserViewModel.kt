@@ -3,13 +3,11 @@ package com.riyaldi.githubuserapp.model
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import com.riyaldi.githubuserapp.db.FavUser
 import com.riyaldi.githubuserapp.db.FavUserDAO
 import com.riyaldi.githubuserapp.db.FavUserDatabase
 import com.riyaldi.githubuserapp.db.FavUserRepository
 import kotlinx.coroutines.*
-import kotlin.coroutines.coroutineContext
 
 @InternalCoroutinesApi
 class FavUserViewModel(application: Application) : AndroidViewModel(application) {

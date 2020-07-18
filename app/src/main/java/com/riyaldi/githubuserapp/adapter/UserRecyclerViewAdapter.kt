@@ -1,31 +1,30 @@
 package com.riyaldi.githubuserapp.adapter
 
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.riyaldi.githubuserapp.R
-import com.riyaldi.githubuserapp.ui.DetailActivity
 import com.riyaldi.githubuserapp.data.User
-import kotlinx.android.synthetic.main.fragment_followers.view.*
+import com.riyaldi.githubuserapp.ui.DetailActivity
 import kotlinx.android.synthetic.main.user_item.view.*
 import kotlinx.coroutines.InternalCoroutinesApi
 
 class UserRecyclerViewAdapter(private val listUser: ArrayList<User>) : RecyclerView.Adapter<UserRecyclerViewAdapter.ListViewHolder>() {
+
+    companion object {
+        private const val size = 120
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
         return ListViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return listUser.size
-    }
+    override fun getItemCount(): Int = listUser.size
 
     @InternalCoroutinesApi
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
@@ -44,7 +43,9 @@ class UserRecyclerViewAdapter(private val listUser: ArrayList<User>) : RecyclerV
                 tvRepo.text = user.repositories
                 Glide.with(itemView.context)
                     .load(user.photoUrl)
-                    .apply(RequestOptions().override(130, 130))
+                    .apply(RequestOptions().override(size, size))
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_launcher_background)
                     .into(imgProfilePhoto)
 
                 itemView.setOnClickListener {

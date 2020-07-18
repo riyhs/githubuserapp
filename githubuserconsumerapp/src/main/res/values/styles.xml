@@ -1,0 +1,15 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="BorderImage" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="civ_border_color">@color/colorGithubBorder</item>
+        <item name="civ_border_width">1dp</item>
+    </style>
+
+</resources>

@@ -3,7 +3,6 @@ package com.riyaldi.githubuserapp.ui
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -51,18 +50,13 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setActionBar(username: String){
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "$username's Profile"
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setDetail() {
         detailViewModel.getDetailUserData(username, applicationContext)
-        detailViewModel.getUserData().observe(this, Observer { it ->
+        detailViewModel.getUserData().observe(this, Observer {
             addFavUser(it)
             setDetailInfo(it)
         })
@@ -79,6 +73,8 @@ class DetailActivity : AppCompatActivity() {
 
         Glide.with(this@DetailActivity)
             .load(user.photoUrl)
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_launcher_background)
             .into(imgProfilePhoto)
     }
 
@@ -112,7 +108,6 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun addFavUser(user: User) {
-        Log.i("HAHAHUHU", user.toString())
         fabLoveInDetail.setOnClickListener {
             isLiked()
             if (!isFav) {
@@ -154,18 +149,22 @@ class DetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        return when(item.itemId) {
             R.id.favMenu -> {
                 val intent = Intent(this@DetailActivity, FavouriteUserActivity::class.java)
                 startActivity(intent)
-                return true
+                true
             }
             R.id.setting_menu -> {
                 val intent = Intent(this@DetailActivity, SettingsActivity::class.java)
                 startActivity(intent)
-                return true
+                true
             }
-            else -> return true
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> true
         }
     }
 }

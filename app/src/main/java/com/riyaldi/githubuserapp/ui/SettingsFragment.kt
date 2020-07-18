@@ -14,7 +14,7 @@ class SettingsFragment : PreferenceFragmentCompat(),
     SharedPreferences.OnSharedPreferenceChangeListener {
 
     private lateinit var reminderPreference: SwitchPreferenceCompat
-    private lateinit var REMINDER: String
+    private lateinit var reminder: String
     private lateinit var alarmReceiver: AlarmReceiver
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -37,18 +37,18 @@ class SettingsFragment : PreferenceFragmentCompat(),
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        if (key == REMINDER) {
-            reminderPreference.isChecked = sharedPreferences.getBoolean(REMINDER, false)
+        if (key == reminder) {
+            reminderPreference.isChecked = sharedPreferences.getBoolean(reminder, false)
         }
 
-        val state : Boolean = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(REMINDER, false)
+        val state : Boolean = PreferenceManager.getDefaultSharedPreferences(context).getBoolean(reminder, false)
 
         setReminder(state)
     }
 
     private fun init() {
-        REMINDER = resources.getString(R.string.reminder_key)
-        reminderPreference = findPreference<SwitchPreferenceCompat>(REMINDER) as SwitchPreferenceCompat
+        reminder = resources.getString(R.string.reminder_key)
+        reminderPreference = findPreference<SwitchPreferenceCompat>(reminder) as SwitchPreferenceCompat
     }
 
     private fun setReminder(state: Boolean) {
@@ -61,6 +61,6 @@ class SettingsFragment : PreferenceFragmentCompat(),
 
     private fun setSummaries() {
         val sh = preferenceManager.sharedPreferences
-        reminderPreference.isChecked = sh.getBoolean(REMINDER, false)
+        reminderPreference.isChecked = sh.getBoolean(reminder, false)
     }
 }

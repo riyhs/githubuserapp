@@ -10,15 +10,20 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 @InternalCoroutinesApi
 class SettingsActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
+
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.settings, SettingsFragment())
             .commit()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        setMyActionBar()
+    }
+
+    private fun setMyActionBar() {
+        actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -28,23 +33,22 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
+        return when(item.itemId) {
             R.id.favMenu -> {
                 val intent = Intent(this@SettingsActivity, FavouriteUserActivity::class.java)
                 startActivity(intent)
-                return true
+                true
             }
             R.id.setting_menu -> {
                 val intent = Intent(this@SettingsActivity, SettingsActivity::class.java)
                 startActivity(intent)
-                return true
+                true
             }
-            else -> return true
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> true
         }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
     }
 }

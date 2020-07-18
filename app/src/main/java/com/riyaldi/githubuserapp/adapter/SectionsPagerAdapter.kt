@@ -13,7 +13,7 @@ import com.riyaldi.githubuserapp.ui.FollowingFragment
 class SectionsPagerAdapter(private val mContext : Context, fm : FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     @StringRes
-    private val TAB_TITLES = intArrayOf(R.string.detail, R.string.followers, R.string.followings)
+    private val tabTitles = intArrayOf(R.string.detail, R.string.followers, R.string.followings)
 
     override fun getItem(position: Int): Fragment {
         var fragment: Fragment? = null
@@ -30,6 +30,6 @@ class SectionsPagerAdapter(private val mContext : Context, fm : FragmentManager)
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return mContext.resources.getString(TAB_TITLES[position])
+        return mContext.resources.getString(tabTitles[position])
     }
 }
