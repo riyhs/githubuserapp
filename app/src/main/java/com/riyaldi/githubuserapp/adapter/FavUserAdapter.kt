@@ -15,21 +15,19 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 class FavUserAdapter(private val favUser: List<FavUser>) : RecyclerView.Adapter<FavUserAdapter.ListViewHolder>() {
 
-    private val size = 120
+    companion object {
+        private const val size = 120
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavUserAdapter.ListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
         return ListViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return favUser.size
-    }
+    override fun getItemCount(): Int = favUser.size
 
     @InternalCoroutinesApi
-    override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        holder.bind(favUser[position])
-    }
+    override fun onBindViewHolder(holder: ListViewHolder, position: Int) = holder.bind(favUser[position])
 
     @Suppress("DEPRECATION")
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

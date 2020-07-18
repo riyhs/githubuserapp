@@ -17,13 +17,3 @@ data class User(
     var followersUrl: String,
     var followingUrl: String
 ) : Parcelable
-
-// company
-// location
-// bio
-
-// detail activity
-// main activity
-// user recyclerview adapter
-// following fragment
-// followers fragment

@@ -15,16 +15,16 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 class UserRecyclerViewAdapter(private val listUser: ArrayList<User>) : RecyclerView.Adapter<UserRecyclerViewAdapter.ListViewHolder>() {
 
-    private val size = 120
+    companion object {
+        private const val size = 120
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
         return ListViewHolder(view)
     }
 
-    override fun getItemCount(): Int {
-        return listUser.size
-    }
+    override fun getItemCount(): Int = listUser.size
 
     @InternalCoroutinesApi
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
