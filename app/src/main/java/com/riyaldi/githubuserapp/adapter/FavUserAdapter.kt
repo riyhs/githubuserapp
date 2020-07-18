@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.riyaldi.githubuserapp.R
 import com.riyaldi.githubuserapp.db.FavUser
@@ -16,7 +15,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 
 class FavUserAdapter(private val favUser: List<FavUser>) : RecyclerView.Adapter<FavUserAdapter.ListViewHolder>() {
 
-    private val size = 130
+    private val size = 120
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavUserAdapter.ListViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.user_item, parent, false)
@@ -45,6 +44,8 @@ class FavUserAdapter(private val favUser: List<FavUser>) : RecyclerView.Adapter<
                 Glide.with(itemView.context)
                     .load(favUser.photoUrl)
                     .apply(RequestOptions().override(size, size))
+                    .placeholder(R.drawable.ic_launcher_background)
+                    .error(R.drawable.ic_launcher_background)
                     .into(imgProfilePhoto)
 
                 itemView.setOnClickListener {

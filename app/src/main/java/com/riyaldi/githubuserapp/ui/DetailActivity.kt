@@ -73,6 +73,8 @@ class DetailActivity : AppCompatActivity() {
 
         Glide.with(this@DetailActivity)
             .load(user.photoUrl)
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_launcher_background)
             .into(imgProfilePhoto)
     }
 
